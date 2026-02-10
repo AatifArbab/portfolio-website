@@ -6,7 +6,7 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const menuItems = ["Home", "About", "Art", "Contact"];
 
-  // Screen size check karne ke liye logic
+  // Screen size check
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768); // 768px se niche mobile
@@ -18,11 +18,11 @@ const Navbar = () => {
 
   const navStyle = {
     width: "100%",
-    height: "65px",
+    height: isMobile ? "60px" : "65px",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: "0 40px",
+    padding: isMobile ? "0 20px" : "0 40px",
     backgroundColor: "#050512",
     color: "#fff",
     position: "fixed",
@@ -35,11 +35,11 @@ const Navbar = () => {
 
   const desktopMenuStyle = {
     display: "flex",
-    gap: "30px",
+    gap: isMobile ? "15px" : "30px",
   };
 
   const dotsContainerStyle = {
-    display: isMobile ? "flex" : "none", // Sirf mobile par dikhega
+    display: isMobile ? "flex" : "none",
     flexDirection: "column",
     gap: "4px",
     cursor: "pointer",
@@ -52,22 +52,23 @@ const Navbar = () => {
     color: "#fff",
     textDecoration: "none",
     fontWeight: "bold",
-    fontSize: "16px",
+    fontSize: isMobile ? "14px" : "16px",
     transition: "0.3s",
   };
 
   const mobileDropdownStyle = {
     position: "absolute",
-    top: "65px",
+    top: isMobile ? "60px" : "65px",
     left: 0,
     width: "100%",
     backgroundColor: "rgba(5, 5, 18, 0.98)",
     display: isMobile && isOpen ? "flex" : "none",
     flexDirection: "column",
     alignItems: "center",
-    padding: "20px 0",
+    padding: "15px 0",
     gap: "15px",
     borderBottom: "2px solid #00e5ff",
+    transition: "all 0.3s ease-in-out",
   };
 
   return (
@@ -75,21 +76,23 @@ const Navbar = () => {
       {/* Logo Section */}
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <img
-          src={logoImage} // ✅ public folder se direct
+          src={logoImage}
           alt="logoImage"
-          style={{ width: "35px", height: "35px" }}
+          style={{ width: isMobile ? "28px" : "35px", height: isMobile ? "28px" : "35px" }}
         />
-        <span style={{ fontWeight: "bold", fontSize: "18px" }}>Zahid Rajper</span>
+        <span style={{ fontWeight: "bold", fontSize: isMobile ? "16px" : "18px" }}>
+          Zahid Rajper
+        </span>
       </div>
 
-      {/* CENTER: Three Dots (Only for Mobile) */}
+      {/* Three Dots for Mobile */}
       <div style={dotsContainerStyle} onClick={() => setIsOpen(!isOpen)}>
         {[1, 2, 3].map((dot) => (
           <div
             key={dot}
             style={{
-              width: "6px",
-              height: "6px",
+              width: isMobile ? "5px" : "6px",
+              height: isMobile ? "5px" : "6px",
               backgroundColor: "#00e5ff",
               borderRadius: "50%",
             }}
@@ -97,7 +100,7 @@ const Navbar = () => {
         ))}
       </div>
 
-      {/* RIGHT: Desktop Links */}
+      {/* Desktop Links */}
       {!isMobile && (
         <div style={desktopMenuStyle}>
           {menuItems.map((item) => (
@@ -126,4 +129,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
