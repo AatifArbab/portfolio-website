@@ -76,7 +76,7 @@ const Navbar = () => {
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <img
           src={logoImage} // ✅ public folder se direct
-          alt="Logo"
+          alt="logoImage"
           style={{ width: "35px", height: "35px" }}
         />
         <span style={{ fontWeight: "bold", fontSize: "18px" }}>Zahid Rajper</span>
