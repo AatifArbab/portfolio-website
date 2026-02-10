@@ -29,7 +29,7 @@ const Hero = () => {
     }
   }, [charIndexH1, h1Text]);
 
-  // H2 typewriter animation (append, not replace)
+  // H2 typewriter animation
   useEffect(() => {
     if (charIndexH1 === h1Text.length && textIndex < texts.length) {
       if (charIndexH2 < texts[textIndex].length) {
@@ -40,7 +40,7 @@ const Hero = () => {
         return () => clearTimeout(timeout);
       } else {
         const timeout = setTimeout(() => {
-          setTypedH2((prev) => prev + "\n"); // New line for next text
+          setTypedH2((prev) => prev + "\n");
           setCharIndexH2(0);
           setTextIndex(textIndex + 1);
         }, 500);
@@ -49,34 +49,65 @@ const Hero = () => {
     }
   }, [charIndexH2, charIndexH1, textIndex, texts]);
 
+  // Mobile-friendly inline styles using JS media query
+  const sectionStyle = {
+    minHeight: "100vh",
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${background})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "40px",
+    color: "#fff",
+    whiteSpace: "pre-line",
+    flexWrap: "wrap",
+  };
+
+  const profileStyle = {
+    marginRight: "40px",
+    maxWidth: "250px",
+    flex: "1 1 300px",
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "30px",
+  };
+
+  const h1Style = {
+    fontSize: "48px",
+    marginBottom: "20px",
+    fontFamily: "'Roboto', sans-serif",
+    fontWeight: 700,
+  };
+
+  const h2Style = {
+    fontSize: "26px",
+    lineHeight: "1.6",
+    fontFamily: "'Merriweather', serif",
+    fontWeight: 400,
+    whiteSpace: "pre-line",
+  };
+
+  // Responsive adjustments
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (windowWidth <= 480) {
+    // mobile adjustments
+    profileStyle.marginRight = "0";
+    profileStyle.marginBottom = "20px";
+    h1Style.fontSize = "calc(20px + 5vw)";
+    h2Style.fontSize = "calc(12px + 2.5vw)";
+    sectionStyle.padding = "20px";
+  }
+
   return (
-    <section
-      id="home"
-      style={{
-        minHeight: "100vh",
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "40px",
-        color: "#fff",
-        whiteSpace: "pre-line",
-        flexWrap: "wrap",
-      }}
-    >
-      {/* Profile Image */}
-      <div
-        style={{
-          marginRight: "40px",
-          maxWidth: "250px",
-          flex: "1 1 300px",
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "30px",
-        }}
-      >
+    <section id="home" style={sectionStyle}>
+      <div style={profileStyle}>
         <img
           src={profile}
           alt="Zahid Rajper"
@@ -89,35 +120,9 @@ const Hero = () => {
           }}
         />
       </div>
-
-      {/* Text Section */}
-      <div
-        style={{
-          maxWidth: "600px",
-          flex: "1 1 300px",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "48px",
-            marginBottom: "20px",
-            fontFamily: "'Roboto', sans-serif",
-            fontWeight: 700,
-          }}
-        >
-          {typedH1}
-        </h1>
-        <h2
-          style={{
-            fontSize: "26px",
-            lineHeight: "1.6",
-            fontFamily: "'Merriweather', serif",
-            fontWeight: 400,
-            whiteSpace: "pre-line",
-          }}
-        >
-          {typedH2}
-        </h2>
+      <div style={{ maxWidth: "600px", flex: "1 1 300px" }}>
+        <h1 style={h1Style}>{typedH1}</h1>
+        <h2 style={h2Style}>{typedH2}</h2>
       </div>
     </section>
   );
