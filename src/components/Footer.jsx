@@ -8,57 +8,63 @@ const Footer = () => {
       style={{
         backgroundColor: "#111",
         color: "#fff",
-        padding: "5px 20px", // footer chhota
+        padding: "10px 15px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "5px",
+        gap: "10px",
         fontSize: "12px",
+        textAlign: "center",
       }}
     >
-      {/* Social Media Icons Center */}
-      <div style={{ display: "flex", gap: "15px", justifyContent: "center" }}>
+      {/* Social Media Icons */}
+      <div
+        style={{
+          display: "flex",
+          gap: "20px",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <a
-          href="https://www.facebook.com/bhittai.art?mibextid=rS40aB7S9Ucbxw6v"
+          href="https://www.facebook.com/bhittai.art"
           target="_blank"
           rel="noreferrer"
+          style={{ display: "inline-block" }}
         >
           <img
             src={facebookIcon}
             alt="Facebook"
             style={{
-              width: "25px",   // icon thoda bada
-              height: "25px",
+              width: "30px",
+              height: "30px",
               cursor: "pointer",
-              transition: "transform 0.3s",
+              objectFit: "contain",
             }}
-            onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.2)")}
-            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
           />
         </a>
 
         <a
-           href="https://instagram.com/zahidhrajper"
-           target="_blank"
+          href="https://instagram.com/zahidhrajper"
+          target="_blank"
           rel="noreferrer"
+          style={{ display: "inline-block" }}
         >
           <img
             src={instagramIcon}
             alt="Instagram"
             style={{
-              width: "25px",   // icon thoda bada
-              height: "25px",
+              width: "30px",
+              height: "30px",
               cursor: "pointer",
-              transition: "transform 0.3s",
+              objectFit: "contain",
             }}
-            onMouseOver={(e) => (e.currentTarget.style.transform = "scale(1.2)")}
-            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
           />
         </a>
       </div>
 
-      {/* Copyright Text Left */}
-      <div style={{ alignSelf: "flex-start" }}>
+      {/* Copyright text */}
+      <div style={{ width: "100%", textAlign: "center" }}>
         © {new Date().getFullYear()} Zahid Rajper. All rights reserved.
       </div>
     </footer>

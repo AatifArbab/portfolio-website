@@ -6,12 +6,11 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const menuItems = ["Home", "About", "Art", "Contact"];
 
-  // Screen size check
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768); // 768px se niche mobile
+      setIsMobile(window.innerWidth < 768);
     };
-    handleResize(); // Initial check
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -38,14 +37,15 @@ const Navbar = () => {
     gap: isMobile ? "15px" : "30px",
   };
 
+  // ✅ Corrected dots style for top-right
   const dotsContainerStyle = {
     display: isMobile ? "flex" : "none",
     flexDirection: "column",
     gap: "4px",
     cursor: "pointer",
     position: "absolute",
-    left: "50%",
-    transform: "translateX(-50%)",
+    right: "20px", // top-right
+    top: "20px",   // top offset
   };
 
   const linkStyle = {
