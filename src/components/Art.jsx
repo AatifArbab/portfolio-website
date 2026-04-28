@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import profileImage from "../assets/image34.jpeg";
+import profileImage from "../assets/image33.jpg";
 import background5 from "../assets/background5.jpg";
 
 const allImages = import.meta.glob("../assets/*.{png,jpg,jpeg,svg}", {
@@ -62,7 +62,6 @@ const Art = () => {
     })),
   };
 
-  // LABEL CHANGE ONLY HERE
   const getTabLabel = (tab) => {
     if (tab === "Exhibition1") return "Exhibition in heston in 2024";
     if (tab === "Exhibition2") return "Exhibition in heston in 2025";
@@ -80,17 +79,19 @@ const Art = () => {
         padding: "30px 15px",
       }}
     >
-      {/* MAIN IMAGE */}
+      {/* MAIN IMAGE (FIXED - FULL IMAGE SHOW) */}
       <div style={{ textAlign: "center" }}>
         <img
           src={profileImage}
           alt="main"
           style={{
             width: isMobile ? "95%" : "400px",
-            height: isMobile ? "300px" : "450px",
-            objectFit: "cover",
+            height: "auto",
+            maxHeight: isMobile ? "450px" : "550px",
+            objectFit: "contain",
             border: "5px solid #281d1d",
             borderRadius: "10px",
+            background: "#fff",
           }}
         />
       </div>
