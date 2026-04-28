@@ -1,257 +1,266 @@
 import React, { useState, useEffect } from "react";
-import profileImage from "../assets/image33.jpg";
+
+import profileImage from "../assets/image34.jpeg";
 import background5 from "../assets/background5.jpg";
 
-// Paintings Images
-import image from "../assets/image.jpg";
-import image1 from "../assets/image1.jpeg";
-import image2 from "../assets/image2.jpeg";
-import image3 from "../assets/image3.jpeg";
-import image4 from "../assets/image4.jpeg";
-import image5 from "../assets/image5.jpeg";
-import image6 from "../assets/image6.jpeg";
-import image7 from "../assets/image7.jpeg";
-import image8 from "../assets/image8.jpeg";
-import image9 from "../assets/image9.jpeg";
-import image10 from "../assets/image10.jpeg";
-import image11 from "../assets/image11.jpeg";
-import image12 from "../assets/image12.jpeg";
-import image13 from "../assets/image13.jpeg";
-import image14 from "../assets/image14.jpeg";
-import image15 from "../assets/image15.jpeg";
-import image16 from "../assets/image16.jpeg";
-import image17 from "../assets/image17.jpeg";
-import image18 from "../assets/image18.jpeg";
-import image19 from "../assets/image19.jpeg";
-import image20 from "../assets/image20.jpeg";
-import image21 from "../assets/image21.jpeg";
-import image22 from "../assets/image22.jpeg";
-import image23 from "../assets/image23.jpeg";
-import image24 from "../assets/image24.jpeg";
-import image25 from "../assets/image25.jpeg";
-import image26 from "../assets/image26.jpeg";
-import image27 from "../assets/image27.jpeg";
-import image28 from "../assets/image28.jpeg";
-import image29 from "../assets/image29.jpeg";
-import image30 from "../assets/image30.jpeg";
-import image31 from "../assets/image31.jpeg";
-import image32 from "../assets/image32.jpeg";
-import image35 from "../assets/image35.jpg";
-import image38 from "../assets/image38.jpeg";
-import image39 from "../assets/image39.jpeg";
-import image40 from "../assets/image40.jpeg";
-import image41 from "../assets/image41.jpeg";
-import image42 from "../assets/image42.jpeg";
-
-// Facebook Video Info
-const facebookVideo = {
-  title1: "A Unique Gift Through Art",
-  title2: "See video on this link",
-  link: "https://www.facebook.com/share/v/1AN6JoMNbt/",
-};
-
-// Paintings Data
-const paintings = [
-  { id: 1, title: "Art 1", img: image },
-  { id: 2, title: "Art 2 ", img: image1 },
-  { id: 3, title: "Art 3", img: image2 },
-  { id: 4, title: "Art 4 ", img: image3 },
-  { id: 5, title: "Art 5", img: image4 },
-  { id: 6, title: "Art 6", img: image5 },
-  { id: 7, title: "Art 7", img: image6 },
-  { id: 8, title: "Art 8", img: image7 },
-  { id: 9, title: "Art 9", img: image8 },
-  { id: 10, title: "Art 10", img: image9 },
-  { id: 11, title: "Art 11", img: image10 },
-  { id: 12, title: "Art 12", img: image11 },
-  { id: 13, title: "Art 13", img: image12 },
-  { id: 14, title: "Art 14", img: image13 },
-  { id: 15, title: "Art 15", img: image14 },
-  { id: 16, title: "Art 16", img: image15 },
-  { id: 17, title: "Art 17", img: image16 },
-  { id: 18, title: "Art 18", img: image17 },
-  { id: 19, title: "Art 19", img: image18 },
-  { id: 20, title: "Art 20", img: image19 },
-  { id: 21, title: "Art 21", img: image20 },
-  { id: 22, title: "Art 22", img: image21 },
-  { id: 23, title: "Art 23", img: image22 },
-  { id: 24, title: "Art 24", img: image23 },
-  { id: 25, title: "Art 25", img: image24 },
-  { id: 26, title: "Art 26", img: image25 },
-  { id: 27, title: "Art 27", img: image26 },
-  { id: 28, title: "Art 28", img: image27 },
-  { id: 29, title: "Art 29", img: image28 },
-  { id: 30, title: "Art 30", img: image29 },
-  { id: 31, title: "Art 31", img: image30 },
-  { id: 32, title: "Art 32", img: image31 },
-  { id: 33, title: "Art 33", img: image32 },
-  { id: 34, title: "Art 34", img: image35 },
-  { id: 35, title: "Art 35", img: image38 },
-  { id: 36, title: "Art 36", img: image39 },
-  { id: 37, title: "Art 37", img: image40 },
-  { id: 38, title: "Art 38", img: image41 },
-  { id: 39, title: "Art 39", img: image42 },
-];
+const allImages = import.meta.glob("../assets/*.{png,jpg,jpeg,svg}", { eager: true });
 
 const Art = () => {
-  const [showPaintings, setShowPaintings] = useState(false);
+  const [activeTab, setActiveTab] = useState("Art");
+  const [selectedImage, setSelectedImage] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Responsive listener
+  const isMobile = windowWidth <= 768;
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Base styles
-  const sectionStyle = {
-    padding: "60px 20px",
-    minHeight: "82vh",
-    backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(${background5})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    color: "#332525",
+  const getImagesByRange = (prefix, count) => {
+    let arr = [];
+    for (let i = 1; i <= count; i++) {
+      const key = Object.keys(allImages).find((path) =>
+        path.toLowerCase().includes(`${prefix}${i}`.toLowerCase())
+      );
+      if (key) {
+        arr.push(allImages[key].default || allImages[key]);
+      }
+    }
+    return arr;
   };
 
-  const containerStyle = {
-    maxWidth: "1000px",
-    margin: "0 auto",
-    display: "flex",
-    gap: "40px",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-    justifyContent: "center",
+  // 🎯 ART LOGIC
+  const artImages = getImagesByRange("Art", 26);
+  const canvasIndexes = [1,5,7,8,10,13,14,16,19,20,21,24,25];
+
+  const sections = {
+    Art: artImages.map((img, index) => {
+      const num = index + 1;
+      if (canvasIndexes.includes(num)) {
+        return {
+          img,
+          size: "20x30",
+          colour: "Acrylic",
+          canvas: "Canvas",
+          status: "Available",
+        };
+      } else {
+        return {
+          img,
+          status: "SOLD",
+        };
+      }
+    }),
+
+    Calligraphy: getImagesByRange("Calligraphy", 18).map((img) => ({
+      img,
+    })),
+
+    Exhibition1: getImagesByRange("1exhibition", 7).map((img) => ({
+      img,
+    })),
+
+    Exhibition2: getImagesByRange("2exhibition", 10).map((img) => ({
+      img,
+    })),
   };
 
-  const profileStyle = {
-    flex: "1 1 300px",
-    width: "100%",
-    maxWidth: "380px",
-    height: "430px",
-    objectFit: "cover",
-    border: "4px solid #281d1d",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.7)",
-  };
-
-  const videoStyle = {
-    flex: "2 1 400px",
-  };
-
-  const previewGridStyle = {
-    marginTop: "30px",
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-    gap: "20px",
-    maxWidth: "650px",
-  };
-
-  const fullGridStyle = {
-    marginTop: "50px",
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "20px",
-    margin: "20px auto",
-    maxWidth: "1000px",
-  };
-
-  // Mobile adjustments
-  if (windowWidth <= 480) {
-    containerStyle.flexDirection = "column";
-    containerStyle.alignItems = "center";
-    containerStyle.gap = "20px";
-    profileStyle.maxWidth = "90%";
-    profileStyle.height = "auto";
-    videoStyle.flex = "1 1 100%";
-    previewGridStyle.gridTemplateColumns = "1fr 1fr";
-    previewGridStyle.maxWidth = "100%";
-    fullGridStyle.gridTemplateColumns = "1fr";
-    fullGridStyle.maxWidth = "100%";
-  }
+  const currentImages = sections[activeTab];
 
   return (
-    <section id="art" style={sectionStyle}>
-      <h1 style={{ textAlign: "center", marginBottom: "10px" }}>My Art</h1>
+    <section
+      style={{
+        minHeight: "100vh",
+        backgroundImage: `url(${background5})`,
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+        backgroundPosition: "center",
+        padding: "40px 20px",
+      }}
+    >
+      {/* TITLE */}
+      <h1 style={{ textAlign: "center", fontSize: "42px", color: "#281d1d" }}>
+        MY ART
+      </h1>
 
-      <div style={containerStyle}>
-        {/* Profile Image */}
-        <div>
-          <img src={profileImage} alt="Zahid Rajper" style={profileStyle} />
+      <div
+        style={{
+          display: "flex",
+          gap: "40px",
+          maxWidth: "1100px",
+          margin: "40px auto",
+          flexWrap: "wrap",
+        }}
+      >
+        {/* LEFT IMAGE */}
+        <div style={{ flex: "1", textAlign: "center" }}>
+          <img
+            src={profileImage}
+            alt="profile"
+            style={{
+              width: "100%",
+              maxWidth: "350px",
+              height: "450px",
+              objectFit: "cover",
+              border: "5px solid #281d1d",
+              borderRadius: "10px",
+            }}
+          />
         </div>
 
-        {/* Video + Preview */}
-        <div style={videoStyle}>
-          <h3>{facebookVideo.title1}</h3>
-          <h4 style={{ color: "#493535" }}>{facebookVideo.title2}</h4>
+        {/* RIGHT CONTENT */}
+        <div style={{ flex: "2" }}>
 
+          {/* TEXT */}
+          <h3 style={{ color: "#fff", marginBottom: "10px" }}>
+            🎁 This artwork was gifted to AudioLab — this is its video showcase.
+          </h3>
+
+          {/* FACEBOOK */}
           <a
-            href={facebookVideo.link}
+            href="https://www.facebook.com/share/v/1AN6JoMNbt/"
             target="_blank"
             rel="noreferrer"
-            style={{ color: "#4d89ff", fontWeight: "bold" }}
+            style={{
+              display: "block",
+              marginBottom: "20px",
+              color: "#007bff",
+              fontWeight: "bold",
+              textDecoration: "none",
+            }}
           >
             ▶ Watch on Facebook
           </a>
 
-          {/* Preview Paintings */}
-          <div style={previewGridStyle}>
-            {paintings.slice(0, 3).map((item) => (
-              <div key={item.id} style={{ textAlign: "center" }}>
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  style={{
-                    width: "100%",
-                    height: "200px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.4)",
-                  }}
-                />
-                <h4 style={{ marginTop: "8px" }}>{item.title}</h4>
-              </div>
+          {/* TABS */}
+          <div style={{ marginBottom: "20px" }}>
+            {Object.keys(sections).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => {
+                  setActiveTab(tab);
+                  setSelectedImage(null);
+                }}
+                style={{
+                  margin: "5px",
+                  padding: "10px 15px",
+                  borderRadius: "20px",
+                  border: "none",
+                  cursor: "pointer",
+                  background: activeTab === tab ? "#281d1d" : "#ddd",
+                  color: activeTab === tab ? "#fff" : "#000",
+                  fontWeight: "bold",
+                }}
+              >
+                {tab}
+              </button>
             ))}
           </div>
 
-          {/* Button */}
-          <div
-            onClick={() => setShowPaintings(!showPaintings)}
-            style={{
-              marginTop: "10px",
-              padding: "13px",
-              background: "#dae2e7",
-              borderRadius: "8px",
-              cursor: "pointer",
-              textAlign: "center",
-              fontWeight: "bold",
-            }}
-          >
-            🎨 View Full Paintings Collection
-          </div>
-        </div>
-      </div>
-
-      {/* Full Paintings Grid */}
-      {showPaintings && (
-        <div style={fullGridStyle}>
-          {paintings.map((item) => (
-            <div key={item.id} style={{ textAlign: "center" }}>
+          {/* IMAGE VIEW */}
+          {selectedImage ? (
+            <div
+              style={{
+                textAlign: "center",
+                position: isMobile ? "fixed" : "static",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: isMobile ? "100vh" : "auto",
+                background: isMobile ? "rgba(0,0,0,0.9)" : "transparent",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                zIndex: 999,
+              }}
+            >
               <img
-                src={item.img}
-                alt={item.title}
+                src={selectedImage.img}
                 style={{
-                  width: "100%",
-                  height: "250px",
-                  objectFit: "cover",
-                  borderRadius: "8px",
+                  width: isMobile ? "90%" : "100%",
+                  maxWidth: "500px",
+                  borderRadius: "10px",
                 }}
               />
-              <h4 style={{ marginTop: "10px" }}>{item.title}</h4>
+
+              {/* 🔥 ONLY FOR ART TAB */}
+              {activeTab === "Art" && (
+                <>
+                  {selectedImage.status === "SOLD" ? (
+                    <p
+                      style={{
+                        color: "#000",
+                        background: "#fff",
+                        padding: "8px 20px",
+                        marginTop: "15px",
+                        fontWeight: "bold",
+                        fontSize: "18px",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      ❌ SOLD
+                    </p>
+                  ) : (
+                    <div style={{ marginTop: "15px" }}>
+                      <p style={{ fontWeight: "bold", color: "#fff" }}>
+                        📏 Size: <span style={{ color: "#ffd700" }}>{selectedImage.size}</span>
+                      </p>
+                      <p style={{ fontWeight: "bold", color: "#fff" }}>
+                        🎨 Colour: <span style={{ color: "#00e6e6" }}>{selectedImage.colour}</span>
+                      </p>
+                      <p style={{ fontWeight: "bold", color: "#fff" }}>
+                        🖼️ Canvas: <span style={{ color: "#ff9966" }}>{selectedImage.canvas}</span>
+                      </p>
+                    </div>
+                  )}
+                </>
+              )}
+
+              <button
+                onClick={() => setSelectedImage(null)}
+                style={{
+                  marginTop: "20px",
+                  padding: "10px 20px",
+                  background: "white",
+                  border: "none",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                Close
+              </button>
             </div>
-          ))}
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: isMobile
+                  ? "1fr"
+                  : "repeat(auto-fill, minmax(150px,1fr))",
+                gap: "15px",
+              }}
+            >
+              {currentImages.map((item, index) => (
+                <img
+                  key={index}
+                  src={item.img}
+                  onClick={() => setSelectedImage(item)}
+                  style={{
+                    width: "100%",
+                    height: isMobile ? "250px" : "140px",
+                    objectFit: "cover",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                  }}
+                />
+              ))}
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 };

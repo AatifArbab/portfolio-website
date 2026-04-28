@@ -45,7 +45,7 @@ const Footer = () => {
         </a>
 
         <a
-          href="https://instagram.com/zahidhrajper"
+          href="https://www.instagram.com/zahidrajper01?utm_source=qr&igsh=MXd5OHA5dm00dGUxOA=="
           target="_blank"
           rel="noreferrer"
           style={{ display: "inline-block" }}

@@ -5,41 +5,49 @@ import background2 from "../assets/background2.jpg";
 const Contact = () => {
   const form = useRef();
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Window resize listener for mobile adjustments
+  // Screen resize
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // SEND EMAIL FUNCTION
   const sendEmail = (e) => {
     e.preventDefault();
+    setLoading(true);
+
     emailjs
       .sendForm(
-        "service_iy228t8",   // 🔴 apni Service ID
-        "template_alh737h",  // 🔴 apni Template ID
+        "service_iy228t8",   // ✅ tumhari service id
+        "template_alh737h",  // ✅ tumhari template id
         form.current,
-        "WLNmK4MlariB149OX"  // 🔴 apni Public Key
+        "WLNmK4MlariB149OX"  // ✅ tumhari public key
       )
-      .then(() => {
-        setSuccess(true);     // ✅ Show success message
+      .then((result) => {
+        console.log("SUCCESS:", result);
+        alert("✅ Email sent successfully!");
+        setSuccess(true);
+        setLoading(false);
         form.current.reset();
       })
       .catch((error) => {
-        alert("Error: " + error.text);
+        console.log("FULL ERROR:", error); // 👈 important debug
+        setLoading(false);
+        alert("❌ Error: " + (error.message || "Check console"));
       });
   };
 
-  // Base styles
+  // STYLES
   const sectionStyle = {
-    padding: windowWidth <= 480 ? "40px 15px" : "60px 20px", // smaller padding for mobile
-    minHeight: "68vh",
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${background2})`,
+    padding: windowWidth <= 480 ? "40px 15px" : "60px 20px",
+    minHeight: "70vh",
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${background2})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
     color: "#fff",
     textAlign: "center",
   };
@@ -60,11 +68,6 @@ const Contact = () => {
     color: "#fff",
   };
 
-  const emailInputStyle = {
-    ...inputStyle,
-    border: "1px solid #fcf7f7",
-  };
-
   const textareaStyle = {
     ...inputStyle,
     backgroundColor: "#292121",
@@ -78,7 +81,6 @@ const Contact = () => {
     color: "#fff",
     fontWeight: "bold",
     cursor: "pointer",
-    transition: "0.3s",
   };
 
   return (
@@ -88,29 +90,40 @@ const Contact = () => {
       </h2>
 
       {success ? (
-        <p
-          style={{
-            color: "#fff",
-            fontWeight: "bold",
-            fontSize: "18px",
-            marginTop: "20px",
-          }}
-        >
-          Thank you! Your message has been sent successfully.
+        <p style={{ color: "#00ff99", fontWeight: "bold" }}>
+          ✅ Your message has been sent successfully!
         </p>
       ) : (
         <form ref={form} onSubmit={sendEmail} style={formStyle}>
-          <input type="text" name="from_name" placeholder="Your Name" required style={inputStyle} />
-          <input type="email" name="from_email" placeholder="Your Email" required style={emailInputStyle} />
-          <textarea name="message" placeholder="Your Message" rows="5" required style={textareaStyle}></textarea>
-          <button
-            type="submit"
-            style={buttonStyle}
-            onMouseOver={(e) => (e.target.style.backgroundColor = "#3a6ed9")}
-            onMouseOut={(e) => (e.target.style.backgroundColor = "#4d89ff")}
-          >
-            Send
+          
+          <input
+            type="text"
+            name="from_name"
+            placeholder="Your Name"
+            required
+            style={inputStyle}
+          />
+
+          <input
+            type="email"
+            name="from_email"
+            placeholder="Your Email"
+            required
+            style={inputStyle}
+          />
+
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="5"
+            required
+            style={textareaStyle}
+          ></textarea>
+
+          <button type="submit" style={buttonStyle}>
+            {loading ? "Sending..." : "Send"}
           </button>
+
         </form>
       )}
     </section>
