@@ -3,10 +3,12 @@ import React, { useState, useEffect } from "react";
 import profileImage from "../assets/image34.jpeg";
 import background5 from "../assets/background5.jpg";
 
-const allImages = import.meta.glob("../assets/*.{png,jpg,jpeg,svg}", { eager: true });
+const allImages = import.meta.glob("../assets/*.{png,jpg,jpeg,svg}", {
+  eager: true,
+});
 
 const Art = () => {
-  const [activeTab, setActiveTab] = useState("Art");
+  const [activeTab, setActiveTab] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -24,19 +26,15 @@ const Art = () => {
       const key = Object.keys(allImages).find((path) =>
         path.toLowerCase().includes(`${prefix}${i}`.toLowerCase())
       );
-      if (key) {
-        arr.push(allImages[key].default || allImages[key]);
-      }
+      if (key) arr.push(allImages[key].default || allImages[key]);
     }
     return arr;
   };
 
-  // 🎯 ART LOGIC
-  const artImages = getImagesByRange("Art", 26);
-  const canvasIndexes = [1,5,7,8,10,13,14,16,19,20,21,24,25];
+  const canvasIndexes = [1, 5, 7, 8, 10, 13, 14, 16, 19, 20, 21, 24, 25];
 
   const sections = {
-    Art: artImages.map((img, index) => {
+    Art: getImagesByRange("Art", 26).map((img, index) => {
       const num = index + 1;
       if (canvasIndexes.includes(num)) {
         return {
@@ -47,10 +45,7 @@ const Art = () => {
           status: "Available",
         };
       } else {
-        return {
-          img,
-          status: "SOLD",
-        };
+        return { img, status: "SOLD" };
       }
     }),
 
@@ -67,7 +62,12 @@ const Art = () => {
     })),
   };
 
-  const currentImages = sections[activeTab];
+  // LABEL CHANGE ONLY HERE
+  const getTabLabel = (tab) => {
+    if (tab === "Exhibition1") return "Exhibition in heston in 2024";
+    if (tab === "Exhibition2") return "Exhibition in heston in 2025";
+    return tab;
+  };
 
   return (
     <section
@@ -77,190 +77,168 @@ const Art = () => {
         backgroundSize: "cover",
         backgroundAttachment: "fixed",
         backgroundPosition: "center",
-        padding: "40px 20px",
+        padding: "30px 15px",
       }}
     >
-      {/* TITLE */}
-      <h1 style={{ textAlign: "center", fontSize: "42px", color: "#281d1d" }}>
-        MY ART
-      </h1>
+      {/* MAIN IMAGE */}
+      <div style={{ textAlign: "center" }}>
+        <img
+          src={profileImage}
+          alt="main"
+          style={{
+            width: isMobile ? "95%" : "400px",
+            height: isMobile ? "300px" : "450px",
+            objectFit: "cover",
+            border: "5px solid #281d1d",
+            borderRadius: "10px",
+          }}
+        />
+      </div>
 
+      {/* FACEBOOK LINK */}
+      <div style={{ textAlign: "center", marginTop: "15px" }}>
+        <a
+          href="https://www.facebook.com/share/v/1AN6JoMNbt/"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            color: "#007bff",
+            fontWeight: "bold",
+            textDecoration: "none",
+            fontSize: "16px",
+          }}
+        >
+          ▶ Watch on Facebook
+        </a>
+      </div>
+
+      {/* TABS */}
       <div
         style={{
           display: "flex",
-          gap: "40px",
-          maxWidth: "1100px",
-          margin: "40px auto",
+          justifyContent: "center",
           flexWrap: "wrap",
+          gap: "10px",
+          marginTop: "20px",
         }}
       >
-        {/* LEFT IMAGE */}
-        <div style={{ flex: "1", textAlign: "center" }}>
-          <img
-            src={profileImage}
-            alt="profile"
+        {Object.keys(sections).map((tab) => (
+          <button
+            key={tab}
+            onClick={() => {
+              setActiveTab(tab);
+              setSelectedImage(null);
+            }}
             style={{
-              width: "100%",
-              maxWidth: "350px",
-              height: "450px",
-              objectFit: "cover",
-              border: "5px solid #281d1d",
+              padding: "10px 15px",
+              borderRadius: "20px",
+              border: "none",
+              cursor: "pointer",
+              background: activeTab === tab ? "#281d1d" : "#ddd",
+              color: activeTab === tab ? "#fff" : "#000",
+              fontWeight: "bold",
+            }}
+          >
+            {getTabLabel(tab)}
+          </button>
+        ))}
+      </div>
+
+      {/* IMAGES */}
+      {activeTab && (
+        <div
+          style={{
+            marginTop: "25px",
+            display: "grid",
+            gridTemplateColumns: isMobile
+              ? "1fr"
+              : "repeat(auto-fill, minmax(160px, 1fr))",
+            gap: "15px",
+          }}
+        >
+          {sections[activeTab].map((item, index) => (
+            <img
+              key={index}
+              src={item.img}
+              onClick={() => setSelectedImage(item)}
+              style={{
+                width: "100%",
+                height: isMobile ? "250px" : "150px",
+                objectFit: "cover",
+                borderRadius: "8px",
+                cursor: "pointer",
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* POPUP */}
+      {selectedImage && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100vh",
+            background: "rgba(0,0,0,0.9)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 999,
+            padding: "20px",
+          }}
+        >
+          <img
+            src={selectedImage.img}
+            style={{
+              width: isMobile ? "90%" : "500px",
               borderRadius: "10px",
             }}
           />
-        </div>
 
-        {/* RIGHT CONTENT */}
-        <div style={{ flex: "2" }}>
+          {activeTab === "Art" && (
+            <>
+              {selectedImage.status === "SOLD" ? (
+                <p
+                  style={{
+                    color: "#000",
+                    background: "#fff",
+                    padding: "8px 20px",
+                    marginTop: "15px",
+                    fontWeight: "bold",
+                    borderRadius: "5px",
+                  }}
+                >
+                  ❌ SOLD
+                </p>
+              ) : (
+                <div style={{ marginTop: "15px", color: "#fff" }}>
+                  <p>📏 Size: {selectedImage.size}</p>
+                  <p>🎨 Colour: {selectedImage.colour}</p>
+                  <p>🖼️ Canvas: {selectedImage.canvas}</p>
+                </div>
+              )}
+            </>
+          )}
 
-          {/* TEXT */}
-          <h3 style={{ color: "#fff", marginBottom: "10px" }}>
-            🎁 This artwork was gifted to AudioLab — this is its video showcase.
-          </h3>
-
-          {/* FACEBOOK */}
-          <a
-            href="https://www.facebook.com/share/v/1AN6JoMNbt/"
-            target="_blank"
-            rel="noreferrer"
+          <button
+            onClick={() => setSelectedImage(null)}
             style={{
-              display: "block",
-              marginBottom: "20px",
-              color: "#007bff",
-              fontWeight: "bold",
-              textDecoration: "none",
+              marginTop: "20px",
+              padding: "10px 20px",
+              background: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
             }}
           >
-            ▶ Watch on Facebook
-          </a>
-
-          {/* TABS */}
-          <div style={{ marginBottom: "20px" }}>
-            {Object.keys(sections).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => {
-                  setActiveTab(tab);
-                  setSelectedImage(null);
-                }}
-                style={{
-                  margin: "5px",
-                  padding: "10px 15px",
-                  borderRadius: "20px",
-                  border: "none",
-                  cursor: "pointer",
-                  background: activeTab === tab ? "#281d1d" : "#ddd",
-                  color: activeTab === tab ? "#fff" : "#000",
-                  fontWeight: "bold",
-                }}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-
-          {/* IMAGE VIEW */}
-          {selectedImage ? (
-            <div
-              style={{
-                textAlign: "center",
-                position: isMobile ? "fixed" : "static",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: isMobile ? "100vh" : "auto",
-                background: isMobile ? "rgba(0,0,0,0.9)" : "transparent",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 999,
-              }}
-            >
-              <img
-                src={selectedImage.img}
-                style={{
-                  width: isMobile ? "90%" : "100%",
-                  maxWidth: "500px",
-                  borderRadius: "10px",
-                }}
-              />
-
-              {/* 🔥 ONLY FOR ART TAB */}
-              {activeTab === "Art" && (
-                <>
-                  {selectedImage.status === "SOLD" ? (
-                    <p
-                      style={{
-                        color: "#000",
-                        background: "#fff",
-                        padding: "8px 20px",
-                        marginTop: "15px",
-                        fontWeight: "bold",
-                        fontSize: "18px",
-                        borderRadius: "5px",
-                      }}
-                    >
-                      ❌ SOLD
-                    </p>
-                  ) : (
-                    <div style={{ marginTop: "15px" }}>
-                      <p style={{ fontWeight: "bold", color: "#fff" }}>
-                        📏 Size: <span style={{ color: "#ffd700" }}>{selectedImage.size}</span>
-                      </p>
-                      <p style={{ fontWeight: "bold", color: "#fff" }}>
-                        🎨 Colour: <span style={{ color: "#00e6e6" }}>{selectedImage.colour}</span>
-                      </p>
-                      <p style={{ fontWeight: "bold", color: "#fff" }}>
-                        🖼️ Canvas: <span style={{ color: "#ff9966" }}>{selectedImage.canvas}</span>
-                      </p>
-                    </div>
-                  )}
-                </>
-              )}
-
-              <button
-                onClick={() => setSelectedImage(null)}
-                style={{
-                  marginTop: "20px",
-                  padding: "10px 20px",
-                  background: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Close
-              </button>
-            </div>
-          ) : (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: isMobile
-                  ? "1fr"
-                  : "repeat(auto-fill, minmax(150px,1fr))",
-                gap: "15px",
-              }}
-            >
-              {currentImages.map((item, index) => (
-                <img
-                  key={index}
-                  src={item.img}
-                  onClick={() => setSelectedImage(item)}
-                  style={{
-                    width: "100%",
-                    height: isMobile ? "250px" : "140px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
-                    cursor: "pointer",
-                  }}
-                />
-              ))}
-            </div>
-          )}
+            Close
+          </button>
         </div>
-      </div>
+      )}
     </section>
   );
 };
