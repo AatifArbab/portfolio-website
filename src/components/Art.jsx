@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import profileImage from "../assets/image33.jpg";
+import profileImage from "../assets/image39.jpg";
 import background5 from "../assets/background5.jpg";
 
 const allImages = import.meta.glob("../assets/*.{png,jpg,jpeg,svg}", {
