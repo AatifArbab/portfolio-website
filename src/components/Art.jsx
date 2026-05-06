@@ -73,15 +73,15 @@ Artist Statement
 
 My work begins with memory, the memory of land, language, water, people, struggle, and the quiet stories carried by everyday life in Sindh.
 
-I come from Khairpur, a district of Sindh, Pakistan, where culture lives in poetry, music, labor, oral history, rural life, and the resilience of ordinary people. Sindhi language and Indus Valley heritage are central to my creative practice. They are not only cultural references for me; they are living sources of feeling, identity, and resistance.
+I come from Khairpur, a district of Sindh, Pakistan, where culture lives in poetry, music, labor, oral history, rural life, and the resilience of ordinary people. Sindhi language and Indus Valley heritage are central to my creative practice.
 
-Through painting, poetry, writing, and visual direction, I explore the emotional and social life of people who are often unseen. My work reflects the struggles of common communities, the dignity of marginalized groups, the pain of displacement, the importance of water, the impact of climate change, and the deep connection between people and land.
+Through painting, poetry, writing, and visual direction, I explore the emotional and social life of people who are often unseen.
 
-For me, art is not separate from society. A painting can carry the weight of a poem. A line of poetry can become an image. A color can hold the memory of a village, a river, a face, or a time of political and social hardship. My work moves between these forms because life itself does not exist in one medium.
+For me, art is not separate from society. A painting can carry the weight of a poem. A line of poetry can become an image.
 
-I am interested in the place where personal memory becomes collective memory. My practice is a way to preserve, question, and share the stories of Sindh while also connecting them with wider human experiences of loss, hope, justice, and belonging.
+I am interested in the place where personal memory becomes collective memory.
 
-Through my work, I hope to create a bridge between Sindh and the world, between local culture and global conversation, between memory and the present, between silence and expression.
+Through my work, I hope to create a bridge between Sindh and the world, between memory and expression.
   `;
 
   return (
@@ -129,18 +129,18 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
         </a>
       </div>
 
-      {/* ARTIST STATEMENT */}
+      {/* ARTIST STATEMENT (CLEAN TEXT ONLY) */}
       <div
         style={{
           maxWidth: "900px",
-          margin: "20px auto",
-          background: "rgba(255,255,255,0.85)",
-          padding: "20px",
-          borderRadius: "10px",
+          margin: "30px auto",
           whiteSpace: "pre-line",
-          fontSize: "14px",
-          lineHeight: "1.6",
-          color: "#111",
+          fontSize: "15px",
+          lineHeight: "1.9",
+          color: "#fff",
+          textAlign: "justify",
+          fontFamily: "Georgia, serif",
+          padding: "0 10px",
         }}
       >
         {artistStatement}

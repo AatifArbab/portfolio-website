@@ -68,15 +68,25 @@ const About = () => {
           <p><strong>Multidisciplinary Artist | Visual Artist | Poet | Writer | Art Director</strong></p>
           <p><strong>Based In:</strong> Sindh, Pakistan</p>
           <p><strong>Born:</strong> Khairpur District, Sindh, Pakistan</p>
-          <p><strong>Year of Birth:</strong> (Add Year)</p>
+          <p><strong>Year of Birth:</strong> (22 - 11 - 1970)</p>
         </div>
 
         {/* EDUCATION */}
-        <div style={card}>
-          <h3>🎓 Education</h3>
-          <p>Bachelor of Arts — Shah Abdul Latif University, Khairpur</p>
-          <p>Associate Degree in Art & Design — (Add Institution)</p>
-        </div>
+<div style={card}>
+  <h3>🎓 Education</h3>
+
+  <p>
+    Bachelor of Arts — Shah Abdul Latif University, Khairpur
+  </p>
+
+  <p>
+    Diploma of Associate Engineer (DAE) — Textile Weaving Technology
+  </p>
+
+  <p>
+    Sindh Board of Technical Education (SBTE), Karachi (1993)
+  </p>
+</div>
 
         {/* PRACTICE */}
         <div style={card}>
