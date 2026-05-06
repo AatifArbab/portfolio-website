@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import logoImage from "../assets/favicon2.jpg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const menuItems = ["Home", "About", "Art", "Contact"];
+
+  const menuItems = [
+    { name: "Home", link: "/" },
+    { name: "About", link: "/about" },
+    { name: "Art", link: "/artist-profile" },
+        { name: "Books", link: "/books" },
+
+    { name: "Contact", link: "/contact" },
+  ];
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -34,31 +44,33 @@ const Navbar = () => {
 
   const desktopMenuStyle = {
     display: "flex",
-    gap: isMobile ? "15px" : "30px",
+    gap: "30px",
   };
 
-  // ✅ Corrected dots style for top-right
   const dotsContainerStyle = {
     display: isMobile ? "flex" : "none",
     flexDirection: "column",
     gap: "4px",
     cursor: "pointer",
-    position: "absolute",
-    right: "20px", // top-right
-    top: "20px",   // top offset
+  };
+
+  const dotStyle = {
+    width: "6px",
+    height: "6px",
+    backgroundColor: "#00e5ff",
+    borderRadius: "50%",
   };
 
   const linkStyle = {
     color: "#fff",
     textDecoration: "none",
     fontWeight: "bold",
-    fontSize: isMobile ? "14px" : "16px",
-    transition: "0.3s",
+    fontSize: "16px",
   };
 
   const mobileDropdownStyle = {
     position: "absolute",
-    top: isMobile ? "60px" : "65px",
+    top: "60px",
     left: 0,
     width: "100%",
     backgroundColor: "rgba(5, 5, 18, 0.98)",
@@ -68,45 +80,39 @@ const Navbar = () => {
     padding: "15px 0",
     gap: "15px",
     borderBottom: "2px solid #00e5ff",
-    transition: "all 0.3s ease-in-out",
   };
 
   return (
     <nav style={navStyle}>
-      {/* Logo Section */}
+      {/* Logo */}
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <img
           src={logoImage}
-          alt="logoImage"
-          style={{ width: isMobile ? "28px" : "35px", height: isMobile ? "28px" : "35px" }}
+          alt="logo"
+          style={{ width: "32px", height: "32px", borderRadius: "50%" }}
         />
-        <span style={{ fontWeight: "bold", fontSize: isMobile ? "16px" : "18px" }}>
+        <span style={{ fontWeight: "bold", fontSize: "18px" }}>
           Zahid Rajper
         </span>
       </div>
 
-      {/* Three Dots for Mobile */}
-      <div style={dotsContainerStyle} onClick={() => setIsOpen(!isOpen)}>
-        {[1, 2, 3].map((dot) => (
-          <div
-            key={dot}
-            style={{
-              width: isMobile ? "5px" : "6px",
-              height: isMobile ? "5px" : "6px",
-              backgroundColor: "#00e5ff",
-              borderRadius: "50%",
-            }}
-          ></div>
-        ))}
+      {/* Mobile Menu Button */}
+      <div
+        style={dotsContainerStyle}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div style={dotStyle}></div>
+        <div style={dotStyle}></div>
+        <div style={dotStyle}></div>
       </div>
 
-      {/* Desktop Links */}
+      {/* Desktop Menu */}
       {!isMobile && (
         <div style={desktopMenuStyle}>
           {menuItems.map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} style={linkStyle}>
-              {item}
-            </a>
+            <Link key={item.name} to={item.link} style={linkStyle}>
+              {item.name}
+            </Link>
           ))}
         </div>
       )}
@@ -114,14 +120,14 @@ const Navbar = () => {
       {/* Mobile Dropdown */}
       <div style={mobileDropdownStyle}>
         {menuItems.map((item) => (
-          <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
-            onClick={() => setIsOpen(false)}
+          <Link
+            key={item.name}
+            to={item.link}
             style={linkStyle}
+            onClick={() => setIsOpen(false)}
           >
-            {item}
-          </a>
+            {item.name}
+          </Link>
         ))}
       </div>
     </nav>

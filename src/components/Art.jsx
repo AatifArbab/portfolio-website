@@ -68,6 +68,22 @@ const Art = () => {
     return tab;
   };
 
+  const artistStatement = `
+Artist Statement
+
+My work begins with memory, the memory of land, language, water, people, struggle, and the quiet stories carried by everyday life in Sindh.
+
+I come from Khairpur, a district of Sindh, Pakistan, where culture lives in poetry, music, labor, oral history, rural life, and the resilience of ordinary people. Sindhi language and Indus Valley heritage are central to my creative practice. They are not only cultural references for me; they are living sources of feeling, identity, and resistance.
+
+Through painting, poetry, writing, and visual direction, I explore the emotional and social life of people who are often unseen. My work reflects the struggles of common communities, the dignity of marginalized groups, the pain of displacement, the importance of water, the impact of climate change, and the deep connection between people and land.
+
+For me, art is not separate from society. A painting can carry the weight of a poem. A line of poetry can become an image. A color can hold the memory of a village, a river, a face, or a time of political and social hardship. My work moves between these forms because life itself does not exist in one medium.
+
+I am interested in the place where personal memory becomes collective memory. My practice is a way to preserve, question, and share the stories of Sindh while also connecting them with wider human experiences of loss, hope, justice, and belonging.
+
+Through my work, I hope to create a bridge between Sindh and the world, between local culture and global conversation, between memory and the present, between silence and expression.
+  `;
+
   return (
     <section
       style={{
@@ -79,7 +95,7 @@ const Art = () => {
         padding: "30px 15px",
       }}
     >
-      {/* MAIN IMAGE (FIXED - FULL IMAGE SHOW) */}
+      {/* MAIN IMAGE */}
       <div style={{ textAlign: "center" }}>
         <img
           src={profileImage}
@@ -111,6 +127,23 @@ const Art = () => {
         >
           ▶ Watch on Facebook
         </a>
+      </div>
+
+      {/* ARTIST STATEMENT */}
+      <div
+        style={{
+          maxWidth: "900px",
+          margin: "20px auto",
+          background: "rgba(255,255,255,0.85)",
+          padding: "20px",
+          borderRadius: "10px",
+          whiteSpace: "pre-line",
+          fontSize: "14px",
+          lineHeight: "1.6",
+          color: "#111",
+        }}
+      >
+        {artistStatement}
       </div>
 
       {/* TABS */}
@@ -199,31 +232,6 @@ const Art = () => {
               borderRadius: "10px",
             }}
           />
-
-          {activeTab === "Art" && (
-            <>
-              {selectedImage.status === "SOLD" ? (
-                <p
-                  style={{
-                    color: "#000",
-                    background: "#fff",
-                    padding: "8px 20px",
-                    marginTop: "15px",
-                    fontWeight: "bold",
-                    borderRadius: "5px",
-                  }}
-                >
-                  ❌ SOLD
-                </p>
-              ) : (
-                <div style={{ marginTop: "15px", color: "#fff" }}>
-                  <p>📏 Size: {selectedImage.size}</p>
-                  <p>🎨 Colour: {selectedImage.colour}</p>
-                  <p>🖼️ Canvas: {selectedImage.canvas}</p>
-                </div>
-              )}
-            </>
-          )}
 
           <button
             onClick={() => setSelectedImage(null)}

@@ -6,99 +6,109 @@ const About = () => {
   const [hovered, setHovered] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Window resize listener for responsiveness
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Base styles
   const sectionStyle = {
     padding: "60px 20px",
-    minHeight: "82vh",
-    backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url(${background4})`,
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${background4})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    color: "#332525",
-    fontFamily: "'Roboto', sans-serif",
-  };
-
-  const titleStyle = {
+    color: "#fff",
+    fontFamily: "Arial",
     textAlign: "center",
-    marginBottom: "40px",
-    fontSize: "38px",
-    fontWeight: 700,
-  };
-
-  const containerStyle = {
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    gap: "40px",
-    flexWrap: "wrap",
-    maxWidth: "1100px",
-    margin: "0 auto",
   };
 
   const profileStyle = {
-    flex: "1 1 300px",
-    width: "100%",
-    maxWidth: "380px",
+    width: windowWidth < 768 ? "90%" : "300px",
     borderRadius: "12px",
-    border: hovered ? "3px solid #86728a" : "3px solid #ffffff",
-    boxShadow: "0 10px 25px rgba(0,0,0,0.3)",
-    transition: "all 0.3s ease",
+    border: hovered ? "3px solid #00c6ff" : "3px solid #fff",
+    boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
+    transition: "0.3s",
     cursor: "pointer",
   };
 
-  const textStyle = {
-    flex: "2 1 200px",
-    minWidth: "280px",
-    fontSize: "18px",
-    lineHeight: "1.8",
-    marginBottom: "25px",
-    fontWeight: 400,
+  const card = {
+    background: "rgba(255,255,255,0.1)",
+    padding: "20px",
+    borderRadius: "12px",
+    marginBottom: "20px",
+    backdropFilter: "blur(8px)",
+    maxWidth: "800px",
+    marginLeft: "auto",
+    marginRight: "auto",
   };
 
-  // Mobile adjustments
-  if (windowWidth <= 480) {
-    titleStyle.fontSize = "calc(18px + 4vw)";
-    containerStyle.flexDirection = "column";
-    containerStyle.alignItems = "center";
-    containerStyle.gap = "20px";
-    profileStyle.maxWidth = "90%";
-    textStyle.fontSize = "calc(12px + 2.5vw)";
-  }
-
   return (
-    <section id="about" style={sectionStyle}>
-      <h1 style={titleStyle}>About Me</h1>
+    <section style={sectionStyle}>
+      
+      {/* TITLE */}
+      <h1 style={{ fontSize: "40px", marginBottom: "30px" }}>
+        About Artist
+      </h1>
 
-      <div style={containerStyle}>
-        {/* LEFT: Profile Image */}
-        <div>
-          <img
-            src={profileImage}
-            alt="Zahid Rajper"
-            style={profileStyle}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-          />
+      {/* IMAGE TOP */}
+      <img
+        src={profileImage}
+        alt="Zahid Rajper"
+        style={profileStyle}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      />
+
+      {/* ABOUT CONTENT BELOW IMAGE */}
+      <div style={{ marginTop: "40px" }}>
+
+        {/* BASIC INFO */}
+        <div style={card}>
+          <h2>Zahid Rajper</h2>
+          <p><strong>Multidisciplinary Artist | Visual Artist | Poet | Writer | Art Director</strong></p>
+          <p><strong>Based In:</strong> Sindh, Pakistan</p>
+          <p><strong>Born:</strong> Khairpur District, Sindh, Pakistan</p>
+          <p><strong>Year of Birth:</strong> (Add Year)</p>
         </div>
 
-        {/* RIGHT: About Text */}
-        <div style={textStyle}>
+        {/* EDUCATION */}
+        <div style={card}>
+          <h3>🎓 Education</h3>
+          <p>Bachelor of Arts — Shah Abdul Latif University, Khairpur</p>
+          <p>Associate Degree in Art & Design — (Add Institution)</p>
+        </div>
+
+        {/* PRACTICE */}
+        <div style={card}>
+          <h3>🎨 Practice</h3>
           <p>
-            Hello! I am <b>Zahid Rajper</b>, a passionate artist, calligrapher, and creative visionary.
-            My journey in the world of art is driven by my love for <b>hand-painted portraits, stencil-style artworks, and calligraphy</b>, where each creation tells a unique story.
-            <br /><br />
-            I strive to bring <b>creativity, precision, and emotion</b> together in every piece I craft. Each artwork is designed to leave a lasting impression and connect deeply with viewers.
-            <br /><br />
-            Through my art, I aim to <b>connect with people globally</b> and deliver <b>high-quality, original artworks</b> that inspire and captivate.
+            Painting, visual art, poetry, writing, art direction, conceptual direction,
+            cultural storytelling, Sindhi language-based creative work.
           </p>
         </div>
+
+        {/* THEMES */}
+        <div style={card}>
+          <h3>🌿 Themes</h3>
+          <p>
+            Sindhi language, Indus Valley heritage, rural life, identity, climate change,
+            water crisis, social justice, migration, belonging, memory, and resistance.
+          </p>
+        </div>
+
+        {/* EXHIBITIONS */}
+        <div style={card}>
+          <h3>🖼️ Exhibitions</h3>
+          <ul style={{ listStyle: "none", padding: 0 }}>
+            <li>Karachi Arts Council, Pakistan</li>
+            <li>Pakistan National Council of Arts</li>
+            <li>Shah Abdul Latif University, Khairpur</li>
+            <li>Khairpur Arts Council</li>
+            <li>World Sindhi Congress — 2024</li>
+            <li>Sindhi Association of North America, Houston — 2025</li>
+          </ul>
+        </div>
+
       </div>
     </section>
   );
