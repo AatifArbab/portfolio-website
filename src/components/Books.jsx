@@ -1,21 +1,29 @@
 import React from "react";
 import bgImage from "../assets/background1.jpg";
 
+// 📚 BOOK IMAGES
+import book1 from "../assets/book1.jpeg";
+import book2 from "../assets/book2.jpeg";
+import book3 from "../assets/book3.jpeg";
+
 const Books = () => {
   const publications = [
     {
       title: "Sada",
+      image: book1,
       type: "Sindhi poetry collection",
       publisher: "Published by Sambara Academy, 2002",
     },
     {
       title: "Melan Chony",
+      image: book2,
       type: "Translation of selected poetry of Zahid Rajper",
       translator: "Translated by Qadir Ansari",
       publisher: "Published by Sindhi Sangat United Kingdom, 2008",
     },
     {
       title: "Black Banded Time",
+      image: book3,
       type: "Translation of selected poetry of Zahid Rajper",
       translator: "Translated by Ibrahim Khokhar",
       publisher: "In publishing process with SCALA Canada",
@@ -33,7 +41,16 @@ const Books = () => {
           <div style={styles.grid}>
             {publications.map((book, index) => (
               <div key={index} style={styles.card}>
+
+                {/* 📖 BOOK IMAGE */}
+                <img
+                  src={book.image}
+                  alt={book.title}
+                  style={styles.bookImage}
+                />
+
                 <h3 style={styles.title}>{book.title}</h3>
+
                 <p style={styles.type}>{book.type}</p>
 
                 {book.translator && (
@@ -51,13 +68,16 @@ const Books = () => {
 
           <section style={styles.section}>
             <h2 style={styles.subHeading}>✍️ Writing & Social Engagement</h2>
+
             <p style={styles.paragraph}>
-              Zahid Rajper writes about climate change, water rights, and social justice.
+              Zahid Rajper writes about climate change, water rights,
+              and social justice.
             </p>
           </section>
 
           <section style={styles.visitBox}>
             <h2>🌍 Upcoming U.S. Visit</h2>
+
             <p>
               <strong>June - July 2026:</strong> Visiting Houston & Richmond.
             </p>
@@ -78,7 +98,7 @@ const styles = {
     minHeight: "100vh",
   },
 
-  // 🔥 DARK OVERLAY (important)
+  // 🔥 DARK OVERLAY
   overlay: {
     backgroundColor: "rgba(0,0,0,0.6)",
     minHeight: "100vh",
@@ -113,6 +133,17 @@ const styles = {
     backdropFilter: "blur(10px)",
     border: "1px solid rgba(255,255,255,0.2)",
     transition: "0.3s",
+    textAlign: "center",
+  },
+
+  // 📚 BOOK IMAGE STYLE
+  bookImage: {
+    width: "100%",
+    height: "320px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    marginBottom: "15px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
   },
 
   title: {
