@@ -42,7 +42,6 @@ const Books = () => {
             {publications.map((book, index) => (
               <div key={index} style={styles.card}>
 
-                {/* 📖 BOOK IMAGE */}
                 <img
                   src={book.image}
                   alt={book.title}
@@ -68,7 +67,6 @@ const Books = () => {
 
           <section style={styles.section}>
             <h2 style={styles.subHeading}>✍️ Writing & Social Engagement</h2>
-
             <p style={styles.paragraph}>
               Zahid Rajper writes about climate change, water rights,
               and social justice.
@@ -77,7 +75,6 @@ const Books = () => {
 
           <section style={styles.visitBox}>
             <h2>🌍 Upcoming U.S. Visit</h2>
-
             <p>
               <strong>June - July 2026:</strong> Visiting Houston & Richmond.
             </p>
@@ -90,7 +87,6 @@ const Books = () => {
 };
 
 const styles = {
-  // 🔥 FULL BACKGROUND
   bgWrapper: {
     backgroundImage: `url(${bgImage})`,
     backgroundSize: "cover",
@@ -98,14 +94,12 @@ const styles = {
     minHeight: "100vh",
   },
 
-  // 🔥 DARK OVERLAY
   overlay: {
     backgroundColor: "rgba(0,0,0,0.6)",
     minHeight: "100vh",
     padding: "50px 20px",
   },
 
-  // CONTENT CENTER
   container: {
     maxWidth: "1000px",
     margin: "auto",
@@ -125,22 +119,21 @@ const styles = {
     gap: "20px",
   },
 
-  // 🔥 GLASS EFFECT CARD
   card: {
     padding: "20px",
     borderRadius: "12px",
     background: "rgba(255,255,255,0.1)",
     backdropFilter: "blur(10px)",
     border: "1px solid rgba(255,255,255,0.2)",
-    transition: "0.3s",
     textAlign: "center",
   },
 
-  // 📚 BOOK IMAGE STYLE
+  // ✅ FIXED IMAGE (NO CROP)
   bookImage: {
     width: "100%",
     height: "320px",
-    objectFit: "cover",
+    objectFit: "contain",
+    backgroundColor: "#111",
     borderRadius: "10px",
     marginBottom: "15px",
     boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
