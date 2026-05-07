@@ -2,9 +2,9 @@ import React from "react";
 import bgImage from "../assets/background1.jpg";
 
 // 📚 BOOK IMAGES
-import book1 from "../assets/book1.jpeg";
-import book2 from "../assets/book2.jpeg";
-import book3 from "../assets/book3.jpeg";
+import book1 from "../assets/Book1.jpeg";
+import book2 from "../assets/Book2.jpeg";
+import book3 from "../assets/Book3.jpeg";
 
 const Books = () => {
   const publications = [
