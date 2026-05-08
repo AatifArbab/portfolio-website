@@ -15,7 +15,7 @@ const Books = () => {
       publisher: "Published by Sambara Academy, 2002",
     },
     {
-      title: "Melan Chony",
+      title: "MelanCholy",
       image: book2,
       type: "Translation of selected poetry of Zahid Rajper",
       translator: "Translated by Qadir Ansari",
@@ -65,20 +65,6 @@ const Books = () => {
             ))}
           </div>
 
-          <section style={styles.section}>
-            <h2 style={styles.subHeading}>✍️ Writing & Social Engagement</h2>
-            <p style={styles.paragraph}>
-              Zahid Rajper writes about climate change, water rights,
-              and social justice.
-            </p>
-          </section>
-
-          <section style={styles.visitBox}>
-            <h2>🌍 Upcoming U.S. Visit</h2>
-            <p>
-              <strong>June - July 2026:</strong> Visiting Houston & Richmond.
-            </p>
-          </section>
 
         </div>
       </div>
