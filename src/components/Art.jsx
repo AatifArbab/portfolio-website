@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-
-import profileImage from "../assets/image39.jpg";
 import background5 from "../assets/background5.jpg";
 
 const allImages = import.meta.glob("../assets/*.{png,jpg,jpeg,svg}", {
@@ -8,7 +6,7 @@ const allImages = import.meta.glob("../assets/*.{png,jpg,jpeg,svg}", {
 });
 
 const Art = () => {
-  const [activeTab, setActiveTab] = useState(null);
+  const [activeTab, setActiveTab] = useState("Art"); // 👈 default open
   const [selectedImage, setSelectedImage] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -16,9 +14,7 @@ const Art = () => {
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
-
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -44,40 +40,27 @@ const Art = () => {
     Art: getImagesByRange("Art", 26).map((img, index) => {
       const num = index + 1;
 
-      if (canvasIndexes.includes(num)) {
-        return {
-          img,
-          size: "20x30",
-          colour: "Acrylic",
-          canvas: "Canvas",
-          status: "Available",
-        };
-      } else {
-        return {
-          img,
-          status: "SOLD",
-        };
-      }
+      return canvasIndexes.includes(num)
+        ? {
+            img,
+            size: "20x30",
+            colour: "Acrylic",
+            canvas: "Canvas",
+            status: "Available",
+          }
+        : { img, status: "SOLD" };
     }),
 
-    Calligraphy: getImagesByRange("Calligraphy", 18).map((img) => ({
-      img,
-    })),
+    Calligraphy: getImagesByRange("Calligraphy", 18).map((img) => ({ img })),
 
-    Exhibition1: getImagesByRange("1exhibition", 7).map((img) => ({
-      img,
-    })),
+    Exhibition1: getImagesByRange("1exhibition", 7).map((img) => ({ img })),
 
-    Exhibition2: getImagesByRange("2exhibition", 10).map((img) => ({
-      img,
-    })),
+    Exhibition2: getImagesByRange("2exhibition", 10).map((img) => ({ img })),
   };
 
   const getTabLabel = (tab) => {
-    if (tab === "Exhibition1") return "Exhibition in Houston in 2024";
-
-    if (tab === "Exhibition2") return "Exhibition in Houston in 2025";
-
+    if (tab === "Exhibition1") return "Exhibition in Houston 2024";
+    if (tab === "Exhibition2") return "Exhibition in Houston 2025";
     return tab;
   };
 
@@ -114,53 +97,16 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
           fontSize: isMobile ? "38px" : "60px",
           marginBottom: "25px",
           fontFamily: "Georgia, serif",
-          letterSpacing: "3px",
-          textShadow: "0 5px 15px rgba(0,0,0,0.8)",
         }}
       >
-        Artist
+        ARTIST
       </h1>
-
-      {/* MAIN IMAGE */}
-      <div style={{ textAlign: "center" }}>
-        <img
-          src={profileImage}
-          alt="main"
-          style={{
-            width: isMobile ? "95%" : "420px",
-            height: "auto",
-            maxHeight: isMobile ? "450px" : "580px",
-            objectFit: "contain",
-            border: "5px solid #281d1d",
-            borderRadius: "12px",
-            background: "#fff",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
-          }}
-        />
-      </div>
-
-      {/* FACEBOOK LINK */}
-      <div style={{ textAlign: "center", marginTop: "15px" }}>
-        <a
-          href="https://www.facebook.com/share/v/1AN6JoMNbt/"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            color: "#00bfff",
-            fontWeight: "bold",
-            textDecoration: "none",
-            fontSize: "16px",
-          }}
-        >
-          ▶ Watch on Facebook
-        </a>
-      </div>
 
       {/* ARTIST STATEMENT */}
       <div
         style={{
           maxWidth: "950px",
-          margin: "35px auto",
+          margin: "0 auto 35px",
           whiteSpace: "pre-line",
           fontSize: "16px",
           lineHeight: "2",
@@ -200,7 +146,6 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
               background: activeTab === tab ? "#281d1d" : "#ddd",
               color: activeTab === tab ? "#fff" : "#000",
               fontWeight: "bold",
-              fontSize: "15px",
             }}
           >
             {getTabLabel(tab)}
@@ -219,8 +164,7 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
               : "repeat(auto-fill, minmax(280px, 1fr))",
             gap: "25px",
             maxWidth: "1400px",
-            marginLeft: "auto",
-            marginRight: "auto",
+            margin: "35px auto",
           }}
         >
           {sections[activeTab].map((item, index) => (
@@ -228,41 +172,36 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
               key={index}
               onClick={() => setSelectedImage(item)}
               style={{
-                position: "relative",
-                overflow: "hidden",
                 borderRadius: "14px",
+                overflow: "hidden",
                 cursor: "pointer",
                 background: "#111",
-                boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
               }}
             >
               <img
                 src={item.img}
-                alt="Artwork"
+                alt="art"
                 style={{
                   width: "100%",
                   height: isMobile ? "350px" : "320px",
                   objectFit: "cover",
-                  display: "block",
                 }}
               />
 
-              {/* STATUS */}
               {item.status && (
                 <div
                   style={{
                     position: "absolute",
-                    bottom: "10px",
-                    right: "10px",
+                    marginTop: "-40px",
+                    marginLeft: "10px",
                     background:
                       item.status === "SOLD"
-                        ? "rgba(255,0,0,0.8)"
-                        : "rgba(0,128,0,0.8)",
+                        ? "red"
+                        : "green",
                     color: "#fff",
-                    padding: "6px 12px",
-                    borderRadius: "20px",
-                    fontSize: "13px",
-                    fontWeight: "bold",
+                    padding: "5px 10px",
+                    borderRadius: "10px",
+                    fontSize: "12px",
                   }}
                 >
                   {item.status}
@@ -273,22 +212,18 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
         </div>
       )}
 
-      {/* IMAGE POPUP */}
+      {/* POPUP */}
       {selectedImage && (
         <div
           style={{
             position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100vh",
+            inset: 0,
             background: "rgba(0,0,0,0.95)",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             zIndex: 9999,
-            padding: "20px",
           }}
         >
           {/* BACK BUTTON */}
@@ -296,69 +231,27 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
             onClick={() => setSelectedImage(null)}
             style={{
               position: "absolute",
-              top: isMobile ? "20px" : "30px",
-              left: isMobile ? "20px" : "40px",
-              padding: "10px 18px",
+              top: 20,
+              left: 20,
+              padding: "10px 15px",
               background: "#fff",
-              color: "#000",
               border: "none",
               borderRadius: "8px",
               cursor: "pointer",
-              fontWeight: "bold",
-              fontSize: "15px",
             }}
           >
             ← Back
           </button>
 
-          {/* LARGE IMAGE */}
           <img
             src={selectedImage.img}
-            alt="Selected Artwork"
             style={{
-              width: isMobile ? "95%" : "75%",
-              maxWidth: "1100px",
+              width: isMobile ? "90%" : "70%",
               maxHeight: "80vh",
               objectFit: "contain",
-              borderRadius: "15px",
-              boxShadow: "0 10px 35px rgba(0,0,0,0.8)",
+              borderRadius: "10px",
             }}
           />
-
-          {/* DETAILS */}
-          <div
-            style={{
-              marginTop: "20px",
-              color: "#fff",
-              textAlign: "center",
-              lineHeight: "1.8",
-              fontSize: "18px",
-            }}
-          >
-            {selectedImage.status && (
-              <p>
-                <strong>Status:</strong> {selectedImage.status}
-              </p>
-            )}
-
-            {selectedImage.size && (
-              <p>
-                <strong>Size:</strong> {selectedImage.size}
-              </p>
-            )}
-
-            {selectedImage.colour && (
-              <p>
-                <strong>Colour:</strong> {selectedImage.colour}
-              </p>
-            )}
-
-            {selectedImage.canvas && (
-              <p>
-                <strong>Surface:</strong> {selectedImage.canvas}
-              </p>
-            )}
-          </div>
         </div>
       )}
     </section>

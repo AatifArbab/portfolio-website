@@ -10,9 +10,9 @@ He studied Art & Design and earned a Bachelor of Arts from Shah Abdul Latif Univ
 
 His exhibitions and presentations include Karachi Arts Council, Pakistan National Council of Arts, Shah Abdul Latif University Khairpur, Khairpur Arts Council, World Sindhi Congress 2024, and the Sindhi Association of North America, Houston 2025.
 
-Zahid is also the author of Sada, a Sindhi poetry collection published in 2002, with selected poetry translated internationally.
+Zahid is also the author of Sada, a Sindhi poetry collection published in 2002.
 
-He is preparing for new exhibitions, gallery engagements, and artistic collaborations in the United States.
+He is preparing for new exhibitions in the United States.
 `;
 
   return (
@@ -24,8 +24,8 @@ He is preparing for new exhibitions, gallery engagements, and artistic collabora
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
         display: "flex",
-        alignItems: "center",
         justifyContent: "center",
+        alignItems: "center",
         padding: "80px 20px",
         color: "#fff",
         fontFamily: "Georgia, serif",
@@ -33,63 +33,82 @@ He is preparing for new exhibitions, gallery engagements, and artistic collabora
     >
       <div
         style={{
-          maxWidth: "900px",
+          maxWidth: "1200px",
           width: "100%",
-          textAlign: "center",
+          display: "flex",
+          gap: "60px",
+          flexWrap: "wrap",
+          alignItems: "center",
         }}
       >
-        {/* LARGE FIXED PROFESSIONAL IMAGE */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginBottom: "30px",
-          }}
-        >
+        {/* IMAGE */}
+        <div style={{ flex: "1", display: "flex", justifyContent: "center" }}>
           <img
             src={profile}
             alt="Zahid Rajper"
             style={{
-              width: "320px",
-              height: "420px",
+              width: "100%",
+              maxWidth: "600px",
+              height: "auto",
+              aspectRatio: "3 / 4",
               objectFit: "cover",
-              borderRadius: "18px",
-              border: "4px solid rgba(255,255,255,0.9)",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.7)",
-              transform: "scale(1)",
-              transition: "0.4s ease",
+              borderRadius: "30px",
+              border: "6px solid rgba(255,255,255,0.95)",
+              boxShadow: "0 40px 100px rgba(0,0,0,0.85)",
             }}
-            onMouseOver={(e) => (e.target.style.transform = "scale(1.03)")}
-            onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
           />
         </div>
 
-        {/* NAME */}
-        <h1
-          style={{
-            fontSize: "48px",
-            marginBottom: "20px",
-            letterSpacing: "2px",
-          }}
-        >
-          Zahid Rajper
-        </h1>
+        {/* TEXT */}
+        <div style={{ flex: "2", minWidth: "320px" }}>
+          <h1
+            style={{
+              fontSize: "58px",
+              marginBottom: "20px",
+              letterSpacing: "2px",
+            }}
+          >
+            Zahid Rajper
+          </h1>
 
-        {/* ABOUT TEXT */}
-        <p
-          style={{
-            fontSize: "16px",
-            lineHeight: "1.9",
-            whiteSpace: "pre-line",
-            opacity: 0.95,
-            textAlign: "justify",
-            background: "rgba(0,0,0,0.35)",
-            padding: "20px",
-            borderRadius: "12px",
-          }}
-        >
-          {fullAbout}
-        </p>
+          <p
+            style={{
+              fontSize: "16px",
+              lineHeight: "2",
+              whiteSpace: "pre-line",
+              background: "rgba(0,0,0,0.35)",
+              padding: "25px",
+              borderRadius: "15px",
+              textAlign: "justify",
+            }}
+          >
+            {fullAbout}
+          </p>
+
+          {/* UPCOMING VISIT BOX */}
+          <div
+            style={{
+              marginTop: "25px",
+              padding: "20px",
+              borderRadius: "15px",
+              background: "rgba(255,255,255,0.08)",
+              border: "1px solid rgba(255,255,255,0.25)",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+            }}
+          >
+            <h3 style={{ marginBottom: "10px", fontSize: "22px" }}>
+              Upcoming U.S. Visit
+            </h3>
+
+            <p style={{ fontSize: "15px", lineHeight: "1.8" }}>
+              Zahid Rajper will be visiting the United States in{" "}
+              <strong>Houston, Texas</strong> and{" "}
+              <strong>Richmond, Virginia</strong> in June–July 2026 for gallery
+              meetings, exhibitions, studio visits, artist collaborations, and
+              cultural exchange opportunities.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
