@@ -1,5 +1,5 @@
 import React from "react";
-import profile from "../assets/zahid1.jpeg";
+import profile from "../assets/art12.jpeg";
 import background from "../assets/background.jpg";
 
 const Hero = () => {
@@ -15,64 +15,61 @@ Zahid is also the author of Sada, a Sindhi poetry collection published in 2002, 
 He is preparing for new exhibitions, gallery engagements, and artistic collaborations in the United States.
 `;
 
-  const styles = {
-    visitBox: {
-      marginTop: "25px",
-      padding: "15px",
-      background: "rgba(255,255,255,0.1)",
-      borderRadius: "12px",
-      border: "1px solid rgba(255,255,255,0.2)",
-    },
-  };
-
   return (
     <section
       style={{
         minHeight: "100vh",
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(${background})`,
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.78)), url(${background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         padding: "80px 20px",
         color: "#fff",
-        textAlign: "center",
         fontFamily: "Georgia, serif",
       }}
     >
       <div
         style={{
-          maxWidth: "850px",
-          background: "rgba(0,0,0,0.45)",
-          padding: "30px",
-          borderRadius: "20px",
-          backdropFilter: "blur(4px)",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+          maxWidth: "900px",
+          width: "100%",
+          textAlign: "center",
         }}
       >
-        {/* PROFILE IMAGE */}
-        <img
-          src={profile}
-          alt="Zahid Rajper"
+        {/* LARGE FIXED PROFESSIONAL IMAGE */}
+        <div
           style={{
-            width: "220px",
-            height: "220px",
-            objectFit: "cover",
-            borderRadius: "15px",
-            marginBottom: "25px",
-            border: "4px solid #fff",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "30px",
           }}
-        />
+        >
+          <img
+            src={profile}
+            alt="Zahid Rajper"
+            style={{
+              width: "320px",
+              height: "420px",
+              objectFit: "cover",
+              borderRadius: "18px",
+              border: "4px solid rgba(255,255,255,0.9)",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.7)",
+              transform: "scale(1)",
+              transition: "0.4s ease",
+            }}
+            onMouseOver={(e) => (e.target.style.transform = "scale(1.03)")}
+            onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+          />
+        </div>
 
         {/* NAME */}
         <h1
           style={{
-            fontSize: "42px",
+            fontSize: "48px",
             marginBottom: "20px",
-            fontWeight: "bold",
+            letterSpacing: "2px",
           }}
         >
           Zahid Rajper
@@ -86,18 +83,13 @@ He is preparing for new exhibitions, gallery engagements, and artistic collabora
             whiteSpace: "pre-line",
             opacity: 0.95,
             textAlign: "justify",
+            background: "rgba(0,0,0,0.35)",
+            padding: "20px",
+            borderRadius: "12px",
           }}
         >
           {fullAbout}
         </p>
-
-        {/* VISIT BOX */}
-        <section style={styles.visitBox}>
-          <h2>🌍 Upcoming U.S. Visit</h2>
-          <p>
-            <strong>June - July 2026:</strong> Visiting Houston & Richmond.
-          </p>
-        </section>
       </div>
     </section>
   );
