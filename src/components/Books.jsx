@@ -15,7 +15,7 @@ const Books = () => {
       publisher: "Published by Sambara Academy, 2002",
     },
     {
-      title: "MelanCholy",
+      title: "Melancholy",
       image: book2,
       type: "Translation of selected poetry of Zahid Rajper",
       translator: "Translated by Qadir Ansari",

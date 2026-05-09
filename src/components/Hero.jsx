@@ -1,5 +1,5 @@
 import React from "react";
-import profile from "../assets/art12.jpeg";
+import profile from "../assets/Art12.jpeg";
 import background from "../assets/background.jpg";
 
 const Hero = () => {
