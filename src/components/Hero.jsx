@@ -20,7 +20,7 @@ Zahid is also the author of Sada, a Sindhi poetry collection published in 2002, 
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: "80px 20px",
+        padding: "60px 20px",
         color: "#111",
         fontFamily: "Georgia, serif",
       }}
@@ -30,43 +30,44 @@ Zahid is also the author of Sada, a Sindhi poetry collection published in 2002, 
           maxWidth: "1400px",
           width: "100%",
           display: "flex",
-          gap: "70px",
+          gap: "60px",
           flexWrap: "wrap",
-          alignItems: "center",
+          alignItems: "flex-start", // IMAGE UPPER AJAEGI
         }}
       >
-        {/* IMAGE */}
-        <div
-          style={{
-            flex: "1",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <img
-            src={profile}
-            alt="Zahid Rajper"
-            style={{
-              width: "100%",
-              maxWidth: "750px",
-              height: "auto",
-              aspectRatio: "3 / 4",
-              objectFit: "cover",
-              borderRadius: "30px",
-              border: "6px solid #111",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
-            }}
-          />
-        </div>
-
+       {/* IMAGE */}
+<div
+  style={{
+    flex: "1",
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "40px", // IMAGE THORI NEECHE
+  }}
+>
+  <img
+    src={profile}
+    alt="Zahid Rajper"
+    style={{
+      width: "100%",
+      maxWidth: "450px",
+      height: "auto",
+      aspectRatio: "3 / 4",
+      objectFit: "cover",
+      borderRadius: "30px",
+      border: "6px solid #111",
+      boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
+    }}
+  />
+</div>
         {/* TEXT */}
         <div style={{ flex: "1", minWidth: "320px" }}>
           <h1
             style={{
               fontSize: "64px",
-              marginBottom: "25px",
+              marginBottom: "12px", // SPACE KAM
               letterSpacing: "2px",
               color: "#000",
+              lineHeight: "1.1",
             }}
           >
             Zahid Rajper
@@ -74,15 +75,12 @@ Zahid is also the author of Sada, a Sindhi poetry collection published in 2002, 
 
           <p
             style={{
-              fontSize: "17px",
+              fontSize: "18px",
               lineHeight: "2",
               whiteSpace: "pre-line",
-              background: "#f5f5f5",
-              padding: "30px",
-              borderRadius: "18px",
               textAlign: "justify",
               color: "#222",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+              marginTop: "0",
             }}
           >
             {fullAbout}
