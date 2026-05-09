@@ -6,66 +6,73 @@ const Footer = () => {
   return (
     <footer
       style={{
-        backgroundColor: "#111",
+        background: "#0b0b0f",
         color: "#fff",
-        padding: "10px 15px",
+        padding: "12px 10px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "10px",
-        fontSize: "12px",
+        gap: "6px",
+        fontFamily: "Arial, sans-serif",
         textAlign: "center",
+        borderTop: "1px solid rgba(255,255,255,0.08)",
       }}
     >
-      {/* Social Media Icons */}
+      {/* SOCIAL ICONS */}
       <div
         style={{
           display: "flex",
-          gap: "20px",
-          justifyContent: "center",
+          gap: "12px",
           alignItems: "center",
         }}
       >
-        <a
-          href="https://www.facebook.com/bhittai.art"
-          target="_blank"
-          rel="noreferrer"
-          style={{ display: "inline-block" }}
-        >
+        <a href="https://www.facebook.com/bhittai.art" target="_blank" rel="noreferrer">
           <img
             src={facebookIcon}
             alt="Facebook"
             style={{
-              width: "30px",
-              height: "30px",
+              width: "24px",
+              height: "24px",
+              borderRadius: "50%",
               cursor: "pointer",
-              objectFit: "contain",
             }}
           />
         </a>
 
-        <a
-          href="https://www.instagram.com/zahidrajper01?utm_source=qr&igsh=MXd5OHA5dm00dGUxOA=="
-          target="_blank"
-          rel="noreferrer"
-          style={{ display: "inline-block" }}
-        >
+        <a href="https://www.instagram.com/zahidrajper01" target="_blank" rel="noreferrer">
           <img
             src={instagramIcon}
             alt="Instagram"
             style={{
-              width: "30px",
-              height: "30px",
+              width: "24px",
+              height: "24px",
+              borderRadius: "50%",
               cursor: "pointer",
-              objectFit: "contain",
             }}
           />
         </a>
       </div>
 
-      {/* Copyright text */}
-      <div style={{ width: "100%", textAlign: "center" }}>
-        © {new Date().getFullYear()} Zahid Rajper. All rights reserved.
+      {/* EMAIL */}
+      <a
+        href="mailto:aatifarbab59@gmail.com"
+        style={{
+          color: "#ccc",
+          textDecoration: "none",
+          fontSize: "11px",
+        }}
+      >
+      </a>
+
+      {/* COPYRIGHT */}
+      <div style={{ fontSize: "10px", color: "#777" }}>
+        © {new Date().getFullYear()} Zahid Rajper
+      </div>
+
+      {/* CREDIT */}
+      <div style={{ fontSize: "12px", color: "#555" }}>
+        Designed & Developed by Aatif Arbab. <b>aatifarbab59@gmail.com</b>
+
       </div>
     </footer>
   );

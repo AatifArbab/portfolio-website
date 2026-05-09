@@ -1,5 +1,4 @@
 import React from "react";
-import bgImage from "../assets/background1.jpg";
 
 // 📚 BOOK IMAGES
 import book1 from "../assets/Book1.jpeg";
@@ -17,162 +16,88 @@ const Books = () => {
     {
       title: "Melancholy",
       image: book2,
-      type: "Translation of selected poetry of Zahid Rajper",
+      type: "Selected Translation ",
       translator: "Translated by Qadir Ansari",
       publisher: "Published by Sindhi Sangat United Kingdom, 2008",
     },
     {
       title: "Black Banded Time",
       image: book3,
-      type: "Translation of selected poetry of Zahid Rajper",
+      type: "Selected Translation ",
       translator: "Translated by Ibrahim Khokhar",
       publisher: "In publishing process with SCALA Canada",
-      expected: "Expected publication year: 2026",
+      expected: "Comming Soon year: 2026",
     },
   ];
 
   return (
-    <div style={styles.bgWrapper}>
-      <div style={styles.overlay}>
-        <div style={styles.container}>
-          
-          <h2 style={styles.heading}>📚 Books & Publications</h2>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#ffffff",
+        padding: "50px 20px",
+        fontFamily: "Arial",
+        color: "#111",
+      }}
+    >
+      {/* HEADING */}
+      <h2
+        style={{
+          textAlign: "center",
+          fontSize: "2.5rem",
+          marginBottom: "40px",
+          fontWeight: "bold",
+        }}
+      >
+        BOOK PUBLISHED
+      </h2>
 
-          <div style={styles.grid}>
-            {publications.map((book, index) => (
-              <div key={index} style={styles.card}>
+      {/* GRID */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: "25px",
+          maxWidth: "1100px",
+          margin: "0 auto",
+        }}
+      >
+        {publications.map((book, index) => (
+          <div key={index} style={{ textAlign: "center" }}>
+            <img
+              src={book.image}
+              alt={book.title}
+              style={{
+                width: "100%",
+                height: "340px",
+                objectFit: "contain",
+                background: "#f5f5f5",
+                borderRadius: "0px", // square
+              }}
+            />
 
-                <img
-                  src={book.image}
-                  alt={book.title}
-                  style={styles.bookImage}
-                />
+            <h3 style={{ marginTop: "15px" }}>{book.title}</h3>
 
-                <h3 style={styles.title}>{book.title}</h3>
+            <p style={{ fontStyle: "italic", color: "#555" }}>
+              {book.type}
+            </p>
 
-                <p style={styles.type}>{book.type}</p>
+            {book.translator && (
+              <p style={{ color: "#666" }}>{book.translator}</p>
+            )}
 
-                {book.translator && (
-                  <p style={styles.text}>{book.translator}</p>
-                )}
+            <p style={{ fontWeight: "bold" }}>{book.publisher}</p>
 
-                <p style={styles.publisher}>{book.publisher}</p>
-
-                {book.expected && (
-                  <p style={styles.expected}>{book.expected}</p>
-                )}
-              </div>
-            ))}
+            {book.expected && (
+              <p style={{ fontSize: "13px", color: "#777" }}>
+                {book.expected}
+              </p>
+            )}
           </div>
-
-
-        </div>
+        ))}
       </div>
     </div>
   );
-};
-
-const styles = {
-  bgWrapper: {
-    backgroundImage: `url(${bgImage})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    minHeight: "100vh",
-  },
-
-  overlay: {
-    backgroundColor: "rgba(0,0,0,0.6)",
-    minHeight: "100vh",
-    padding: "50px 20px",
-  },
-
-  container: {
-    maxWidth: "1000px",
-    margin: "auto",
-    fontFamily: "Arial",
-    color: "#fff",
-  },
-
-  heading: {
-    textAlign: "center",
-    fontSize: "2.3rem",
-    marginBottom: "30px",
-  },
-
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-    gap: "20px",
-  },
-
-  card: {
-    padding: "20px",
-    borderRadius: "12px",
-    background: "rgba(255,255,255,0.1)",
-    backdropFilter: "blur(10px)",
-    border: "1px solid rgba(255,255,255,0.2)",
-    textAlign: "center",
-  },
-
-  // ✅ FIXED IMAGE (NO CROP)
-  bookImage: {
-    width: "100%",
-    height: "320px",
-    objectFit: "contain",
-    backgroundColor: "#111",
-    borderRadius: "10px",
-    marginBottom: "15px",
-    boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
-  },
-
-  title: {
-    margin: 0,
-    fontSize: "1.4rem",
-  },
-
-  type: {
-    fontStyle: "italic",
-    color: "#ddd",
-  },
-
-  text: {
-    color: "#ccc",
-  },
-
-  publisher: {
-    fontWeight: "bold",
-    marginTop: "5px",
-  },
-
-  expected: {
-    fontSize: "0.9rem",
-    color: "#bbb",
-  },
-
-  section: {
-    marginTop: "60px",
-    textAlign: "center",
-  },
-
-  subHeading: {
-    fontSize: "1.8rem",
-  },
-
-  paragraph: {
-    maxWidth: "700px",
-    margin: "auto",
-    lineHeight: "1.7",
-    color: "#ddd",
-  },
-
-  visitBox: {
-    marginTop: "60px",
-    padding: "25px",
-    borderRadius: "12px",
-    background: "rgba(255,255,255,0.15)",
-    backdropFilter: "blur(8px)",
-    textAlign: "center",
-  },
 };
 
 export default Books;

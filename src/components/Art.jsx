@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import background5 from "../assets/background5.jpg";
 
 const allImages = import.meta.glob("../assets/*.{png,jpg,jpeg,svg}", {
   eager: true,
 });
 
 const Art = () => {
-  const [activeTab, setActiveTab] = useState("Art"); // 👈 default open
+  const [activeTab, setActiveTab] = useState("Art");
   const [selectedImage, setSelectedImage] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const isMobile = windowWidth <= 768;
 
@@ -64,28 +64,11 @@ const Art = () => {
     return tab;
   };
 
-  const artistStatement = `
-Artist Statement
-
-My work begins with memory, the memory of land, language, water, people, struggle, and the quiet stories carried by everyday life in Sindh.
-
-I come from Khairpur, a district of Sindh, Pakistan, where culture lives in poetry, music, labor, oral history, rural life, and the resilience of ordinary people.
-
-Through painting, poetry, writing, and visual direction, I explore the emotional and social life of people who are often unseen.
-
-For me, art is not separate from society. A painting can carry the weight of a poem. A line of poetry can become an image.
-
-Through my work, I hope to create a bridge between Sindh and the world, between memory and expression.
-`;
-
   return (
     <section
       style={{
         minHeight: "100vh",
-        backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${background5})`,
-        backgroundSize: "cover",
-        backgroundAttachment: "fixed",
-        backgroundPosition: "center",
+        background: "#ffffff",
         padding: "40px 15px",
       }}
     >
@@ -93,33 +76,14 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
       <h1
         style={{
           textAlign: "center",
-          color: "#fff",
+          color: "#000",
           fontSize: isMobile ? "38px" : "60px",
           marginBottom: "25px",
           fontFamily: "Georgia, serif",
         }}
       >
-        ARTIST
+        ART
       </h1>
-
-      {/* ARTIST STATEMENT */}
-      <div
-        style={{
-          maxWidth: "950px",
-          margin: "0 auto 35px",
-          whiteSpace: "pre-line",
-          fontSize: "16px",
-          lineHeight: "2",
-          color: "#fff",
-          textAlign: "justify",
-          fontFamily: "Georgia, serif",
-          padding: "20px",
-          background: "rgba(0,0,0,0.45)",
-          borderRadius: "15px",
-        }}
-      >
-        {artistStatement}
-      </div>
 
       {/* TABS */}
       <div
@@ -140,10 +104,10 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
             }}
             style={{
               padding: "12px 18px",
-              borderRadius: "25px",
-              border: "none",
+              borderRadius: "0px",
+              border: "1px solid #000",
               cursor: "pointer",
-              background: activeTab === tab ? "#281d1d" : "#ddd",
+              background: activeTab === tab ? "#000" : "#fff",
               color: activeTab === tab ? "#fff" : "#000",
               fontWeight: "bold",
             }}
@@ -153,7 +117,7 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
         ))}
       </div>
 
-      {/* IMAGES */}
+      {/* IMAGES GRID */}
       {activeTab && (
         <div
           style={{
@@ -161,7 +125,7 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
             display: "grid",
             gridTemplateColumns: isMobile
               ? "1fr"
-              : "repeat(auto-fill, minmax(280px, 1fr))",
+              : "repeat(3, 1fr)", // 👈 laptop pe 3 images
             gap: "25px",
             maxWidth: "1400px",
             margin: "35px auto",
@@ -171,11 +135,14 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
             <div
               key={index}
               onClick={() => setSelectedImage(item)}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
               style={{
-                borderRadius: "14px",
                 overflow: "hidden",
                 cursor: "pointer",
-                background: "#111",
+                background: "#f5f5f5",
+                position: "relative",
+                borderRadius: "0px", // 👈 square images
               }}
             >
               <img
@@ -183,8 +150,11 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
                 alt="art"
                 style={{
                   width: "100%",
-                  height: isMobile ? "350px" : "320px",
+                  height: isMobile ? "350px" : "420px",
                   objectFit: "cover",
+                  transition: "0.4s ease",
+                  transform:
+                    hoveredIndex === index ? "scale(1.03)" : "scale(1)",
                 }}
               />
 
@@ -192,15 +162,12 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
                 <div
                   style={{
                     position: "absolute",
-                    marginTop: "-40px",
-                    marginLeft: "10px",
+                    top: "10px",
+                    left: "10px",
                     background:
-                      item.status === "SOLD"
-                        ? "red"
-                        : "green",
+                      item.status === "SOLD" ? "red" : "green",
                     color: "#fff",
                     padding: "5px 10px",
-                    borderRadius: "10px",
                     fontSize: "12px",
                   }}
                 >
@@ -220,36 +187,35 @@ Through my work, I hope to create a bridge between Sindh and the world, between 
             inset: 0,
             background: "rgba(0,0,0,0.95)",
             display: "flex",
-            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             zIndex: 9999,
           }}
         >
-          {/* BACK BUTTON */}
-          <button
+          {/* CLOSE BUTTON (TOP LEFT ON IMAGE AREA) */}
+          <div
             onClick={() => setSelectedImage(null)}
             style={{
               position: "absolute",
-              top: 20,
-              left: 20,
-              padding: "10px 15px",
-              background: "#fff",
-              border: "none",
-              borderRadius: "8px",
+              top: "20px",
+              left: "20px",
+              color: "#fff",
+              fontSize: "40px",
               cursor: "pointer",
+              fontWeight: "bold",
             }}
           >
-            ← Back
-          </button>
+            ×
+          </div>
 
           <img
             src={selectedImage.img}
+            alt=""
             style={{
-              width: isMobile ? "90%" : "70%",
-              maxHeight: "80vh",
+              width: isMobile ? "92%" : "70%",
+              maxHeight: "90vh",
               objectFit: "contain",
-              borderRadius: "10px",
+              borderRadius: "0px",
             }}
           />
         </div>

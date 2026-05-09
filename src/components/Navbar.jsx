@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import logoImage from "../assets/favicon2.jpg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [hovered, setHovered] = useState(null);
 
   const menuItems = [
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
     { name: "Art", link: "/art" },
-        { name: "Books", link: "/books" },
+    { name: "Books", link: "/books" },
     { name: "Contact", link: "/contact" },
   ];
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -29,8 +26,7 @@ const Navbar = () => {
     height: isMobile ? "60px" : "65px",
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
-    padding: isMobile ? "0 20px" : "0 40px",
+    justifyContent: "center",
     backgroundColor: "#050512",
     color: "#fff",
     position: "fixed",
@@ -38,18 +34,27 @@ const Navbar = () => {
     left: 0,
     zIndex: 1000,
     fontFamily: "Arial, sans-serif",
-    boxSizing: "border-box",
   };
 
-  const desktopMenuStyle = {
+  const menuStyle = {
     display: "flex",
-    gap: "30px",
+    gap: "35px",
   };
+
+  const linkStyle = (index) => ({
+    color: hovered === index ? "#00e5ff" : "#fff",
+    textDecoration: "none",
+    fontWeight: "bold",
+    fontSize: "16px",
+    transition: "0.3s ease",
+  });
 
   const dotsContainerStyle = {
     display: isMobile ? "flex" : "none",
     flexDirection: "column",
     gap: "4px",
+    position: "absolute",
+    right: "20px",
     cursor: "pointer",
   };
 
@@ -58,13 +63,6 @@ const Navbar = () => {
     height: "6px",
     backgroundColor: "#00e5ff",
     borderRadius: "50%",
-  };
-
-  const linkStyle = {
-    color: "#fff",
-    textDecoration: "none",
-    fontWeight: "bold",
-    fontSize: "16px",
   };
 
   const mobileDropdownStyle = {
@@ -83,19 +81,24 @@ const Navbar = () => {
 
   return (
     <nav style={navStyle}>
-      {/* Logo */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <img
-          src={logoImage}
-          alt="logo"
-          style={{ width: "32px", height: "32px", borderRadius: "50%" }}
-        />
-        <span style={{ fontWeight: "bold", fontSize: "18px" }}>
-          Zahid Rajper
-        </span>
-      </div>
+      {/* Desktop Menu */}
+      {!isMobile && (
+        <div style={menuStyle}>
+          {menuItems.map((item, index) => (
+            <Link
+              key={item.name}
+              to={item.link}
+              style={linkStyle(index)}
+              onMouseEnter={() => setHovered(index)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+      )}
 
-      {/* Mobile Menu Button */}
+      {/* Mobile Button */}
       <div
         style={dotsContainerStyle}
         onClick={() => setIsOpen(!isOpen)}
@@ -105,24 +108,13 @@ const Navbar = () => {
         <div style={dotStyle}></div>
       </div>
 
-      {/* Desktop Menu */}
-      {!isMobile && (
-        <div style={desktopMenuStyle}>
-          {menuItems.map((item) => (
-            <Link key={item.name} to={item.link} style={linkStyle}>
-              {item.name}
-            </Link>
-          ))}
-        </div>
-      )}
-
       {/* Mobile Dropdown */}
       <div style={mobileDropdownStyle}>
         {menuItems.map((item) => (
           <Link
             key={item.name}
             to={item.link}
-            style={linkStyle}
+            style={{ color: "#fff", textDecoration: "none", fontWeight: "bold" }}
             onClick={() => setIsOpen(false)}
           >
             {item.name}
