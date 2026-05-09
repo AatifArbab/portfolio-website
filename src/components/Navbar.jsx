@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [hovered, setHovered] = useState(null);
 
   const menuItems = [
     { name: "Home", link: "/" },
@@ -28,55 +27,41 @@ const Navbar = () => {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#050512",
-    color: "#fff",
     position: "fixed",
     top: 0,
     left: 0,
     zIndex: 1000,
-    fontFamily: "Arial, sans-serif",
   };
 
   const menuStyle = {
     display: "flex",
-    gap: "35px",
+    gap: "25px",
   };
 
-  const linkStyle = (index) => ({
-    color: hovered === index ? "#00e5ff" : "#fff",
+  // 🔥 ACTIVE + NORMAL STYLE
+  const linkStyle = ({ isActive }) => ({
+    padding: "8px 14px",
+    borderRadius: "8px",
     textDecoration: "none",
     fontWeight: "bold",
-    fontSize: "16px",
-    transition: "0.3s ease",
+    fontSize: "15px",
+    color: isActive ? "#000" : "#fff",
+    background: isActive ? "#00e5ff" : "transparent",
+    border: isActive ? "2px solid #00e5ff" : "2px solid transparent",
+    transition: "0.3s",
   });
-
-  const dotsContainerStyle = {
-    display: isMobile ? "flex" : "none",
-    flexDirection: "column",
-    gap: "4px",
-    position: "absolute",
-    right: "20px",
-    cursor: "pointer",
-  };
-
-  const dotStyle = {
-    width: "6px",
-    height: "6px",
-    backgroundColor: "#00e5ff",
-    borderRadius: "50%",
-  };
 
   const mobileDropdownStyle = {
     position: "absolute",
     top: "60px",
     left: 0,
     width: "100%",
-    backgroundColor: "rgba(5, 5, 18, 0.98)",
+    backgroundColor: "#050512",
     display: isMobile && isOpen ? "flex" : "none",
     flexDirection: "column",
     alignItems: "center",
-    padding: "15px 0",
     gap: "15px",
-    borderBottom: "2px solid #00e5ff",
+    padding: "15px 0",
   };
 
   return (
@@ -84,41 +69,37 @@ const Navbar = () => {
       {/* Desktop Menu */}
       {!isMobile && (
         <div style={menuStyle}>
-          {menuItems.map((item, index) => (
-            <Link
-              key={item.name}
-              to={item.link}
-              style={linkStyle(index)}
-              onMouseEnter={() => setHovered(index)}
-              onMouseLeave={() => setHovered(null)}
-            >
+          {menuItems.map((item) => (
+            <NavLink key={item.name} to={item.link} style={linkStyle}>
               {item.name}
-            </Link>
+            </NavLink>
           ))}
         </div>
       )}
 
       {/* Mobile Button */}
-      <div
-        style={dotsContainerStyle}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <div style={dotStyle}></div>
-        <div style={dotStyle}></div>
-        <div style={dotStyle}></div>
-      </div>
+      {isMobile && (
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          style={{ position: "absolute", right: "20px", cursor: "pointer" }}
+        >
+          <div style={{ width: 6, height: 6, background: "#00e5ff", margin: 2 }} />
+          <div style={{ width: 6, height: 6, background: "#00e5ff", margin: 2 }} />
+          <div style={{ width: 6, height: 6, background: "#00e5ff", margin: 2 }} />
+        </div>
+      )}
 
       {/* Mobile Dropdown */}
       <div style={mobileDropdownStyle}>
         {menuItems.map((item) => (
-          <Link
+          <NavLink
             key={item.name}
             to={item.link}
-            style={{ color: "#fff", textDecoration: "none", fontWeight: "bold" }}
+            style={linkStyle}
             onClick={() => setIsOpen(false)}
           >
             {item.name}
-          </Link>
+          </NavLink>
         ))}
       </div>
     </nav>
