@@ -37,7 +37,7 @@ const Art = () => {
   const canvasIndexes = [1, 5, 7, 8, 10, 13, 14, 16, 19, 20, 21, 24, 25];
 
   const sections = {
-    Art: getImagesByRange("Art", 26).map((img, index) => {
+    Art: getImagesByRange("Art", 27).map((img, index) => {
       const num = index + 1;
 
       return canvasIndexes.includes(num)
